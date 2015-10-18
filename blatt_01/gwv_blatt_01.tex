@@ -120,5 +120,56 @@
 
 \section*{Exercise 1.2: AI Terminology}
 
+\subsection*{Knowledge}
+\begin{itemize}
+    \item
+        Als \emph{Information} bezeichnet man die Bedeutung einer Anordnung von
+        Symbolen. In den Bits auf der Festplatte eines Notebooks ist
+        Information kodiert.
+
+    \item
+        \emph{Implizites Wissen} beschreibt Wissen, das jemand besitzt, ohne
+        dass es formal beschrieben und weitergegeben werden kann. Beispiele
+        sind die Fähigkeit eines Menschen, Tätigkeiten intuitiv auszuführen,
+        ohne dass der Person bewusst ist wie genau diese funktionieren.
+
+    \item
+        Unter \emph{explizitem Wissen} wird im Gegensatz zum impliziten Wissen
+        eindeutig kodierbares Wissen verstanden.  Das ganz zum Beispiel eine
+        Definition in einem Paper sein.
+
+\end{itemize}
+
+\subsection*{Characteristics of Environments}
+
+\begin{itemize}
+    \item
+        Ist die Umgebung nur \emph{teilweise beobachtbar}, so muss ggf. auf Dinge im
+        momentan nicht beobachtbaren Teil geschlossen werden.
+
+        Beispiel: Ein Roboter soll sich in einem Wegenetz von einem Startpunkt zu einem
+        Enpunkt bewegen und dabei eine möglichst kurze Strecke zurücklegen.  Das
+        Wegenetz sei als Graph modelliert.  Ist dieser \emph{komplett} bekannt, kann
+        z.~B. Dijkstras Algorithmus angewandt werden, um den kürzesten Weg zu finden.
+        Andernfalls muss der Roboter einen Weg durch das Labyrinth suchen.
+
+    \item
+        \emph{Kontinuierliche} Werte lassen sich von Digitalcomputern nicht verarbeiten,
+        daher ist es oft notwendig, Werte zu \emph{diskretisieren}.
+
+        Beispiel: An den Pin eines Mikrocontrollers wird eine Spannung angelegt. Um
+        diese digital zu verarbeiten, wird sie mit Hilfe von einem A/D-Wandler in
+        diskrete Werte überführt. Dabei gehen Informationen verloren, da ein
+        Mikrocontroller Werte nur mit einer endlichen Anzahl an Bits speichern und
+        verarbeiten kann.
+
+    \item
+        Das Verhalten der Umgebung ist unter Umständen nicht genau bekannt und muss
+        daher durch ein \emph{stochastisches} Modell beschrieben werden.
+
+        Beispiel: Es ist nicht bekannt, wann ein Kommunikationspartner kommunizieren
+        möchte, aber es kann gesagt werden, dass dies im Mittel einmal alle $t$
+        Zeiteinheiten geschieht.
+\end{itemize}
 
 \end{document}
