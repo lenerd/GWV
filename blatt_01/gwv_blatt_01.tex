@@ -20,6 +20,8 @@
 \usepackage{listings}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.12}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
 
 \newtheorem*{behaupt}{Behauptung}
 \newcommand{\gdw}{\Leftrightarrow}
@@ -50,70 +52,74 @@
 \section*{Exercise 1.1: Application Scenarios for Artificial Intelligence}
   \begin{enumerate}
     \item{Schach} \\
-      Die Aufgabe der AI besteht darin den Gegner auszuspielen und die Partie zu
-      gewinnen. Für die AI gegeben sind die Spielfiguren mit ihren jeweiligen
-      Eigenschaften, sowie ihrer Position auf dem Spielfeld. Des Weiteren ist der
-      Aufbau des Spielbretts bekannt.
-      Die Aufgabe ist dann erfüllt, wenn die AI ihren Gegenspieler schachmatt gesetzt
-      hat. \\
+      Die Aufgabe der AI besteht darin den Gegner auszuspielen und die Partie
+      zu gewinnen. Für die AI gegeben sind die Spielfiguren mit ihren
+      jeweiligen Eigenschaften, sowie ihrer Position auf dem Spielfeld. Des
+      Weiteren ist der Aufbau des Spielbretts bekannt.  Die Aufgabe ist dann
+      erfüllt, wenn die AI ihren Gegenspieler schachmatt gesetzt hat.
 
       Warum wird Intelligenz benötigt? \\
-      Für die Bewältigung dieser Aufgabe wird Intelligenz benötigt, da die aktuelle
-      Lage auf dem Spielfeld eingeschätzt werden muss und aufgrund dieser Einschätzung
-      eine Entscheidung über den nächsten Zug getroffen werden muss. Da sich die Lage
-      jederzeit auf dem Spielfeld ändern, muss die AI flexibel auf Handlungen
-      des Gegenspielers reagieren. \\
+      Für die Bewältigung dieser Aufgabe wird Intelligenz benötigt, da die
+      aktuelle Lage auf dem Spielfeld eingeschätzt werden muss und aufgrund
+      dieser Einschätzung eine Entscheidung über den nächsten Zug getroffen
+      werden muss. Da sich die Lage jederzeit auf dem Spielfeld ändern, muss
+      die AI flexibel auf Handlungen des Gegenspielers reagieren.
 
-      Was für Schwierigkeiten teten auf?\\
-      Schwierigkeiten können bei der Planung einer Abfolge von Spielzügen auftreten,
-      da mögliche Handlungen des Gegenspielers eingeplant bzw. erahnt werden müssen.
-      Außerdem kann es Probleme geben, der letzte Zug des Gegners die voraus geplanten
-      Züge zunichte macht, in diesem Fall muss eine neue Strategie innerhabl kürzester
-      Zeit entwickelt werden. \\
+      Was für Schwierigkeiten treten auf?\\
+      Schwierigkeiten können bei der Planung einer Abfolge von Spielzügen
+      auftreten, da mögliche Handlungen des Gegenspielers eingeplant bzw.
+      erahnt werden müssen.  Außerdem kann es Probleme geben, der letzte Zug
+      des Gegners die voraus geplanten Züge zunichte macht, in diesem Fall muss
+      eine neue Strategie innerhalb kürzester Zeit entwickelt werden.
 
-      Link: http://www.shredderchess.de/online-schach-spielen.html \\
-
-
+      Link: \url{http://www.shredderchess.de/online-schach-spielen.html}
 
     \item{Wegfindung}
-      Die AI soll den optimalen oder gewünschten Weg von einem Ort zum anderen finden.
-      Dabei muss unterschieden werden, ob der schnellste Weg genommen werden soll, oder
-      ob bestimmte Straßentypen nicht genutzt werden sollen, z.B. Bundesstraßen oder
-      Autobahn. Nebenbei soll das Navi, sich häufig genutzte Routen merken und diese Überwachen, um
-      die optimale Route zu finden. Um die Aufgabe zu lösen stehen Kartenmarterial, eine GPS-Verbindung
-      sowie Informationen über die aktuelle Verkehrslage zur Verfügung.  \\
+      Die AI soll den optimalen oder gewünschten Weg von einem Ort zum anderen
+      finden.  Dabei muss unterschieden werden, ob der schnellste Weg genommen
+      werden soll, oder ob bestimmte Straßentypen nicht genutzt werden sollen,
+      z.~B. Bundesstraßen oder Autobahn. Nebenbei soll das Navigationssystem,
+      sich häufig genutzte Routen merken und diese Überwachen, um die optimale
+      Route zu finden. Um die Aufgabe zu lösen stehen Kartenmaterial, eine
+      GPS-Verbindung sowie Informationen über die aktuelle Verkehrslage zur
+      Verfügung.
 
       Warum wird Intelligenz benötigt? \\
       Die AI muss in der Lage sein, die Verkehrslage auf der geplanten Route zu
       überwachen und notfalls eine neue Route berechnen, um mögliche Staus oder
-      Baustellen zu reagieren. Des Weiteren  muss das System in der Lage sein Muster zu erkenn
-      und diese zu optimieren und zu verbessern.\\
+      Baustellen zu reagieren. Des Weiteren muss das System in der Lage sein,
+      Muster zu erkennen und diese zu optimieren und zu verbessern.
 
       Was für Schwierigkeiten treten auf? \\
-      Es können Konflikte zur Laufzeit auftreten, wenn das System einen Stau umgehen
-      möchte, die alternative Route aber in Konflikt mit den Wünschen des Nutzers steht,
-      muss die AI eine Entscheidung treffen, die zum optimalen Weg fürht. \\
+      Es können Konflikte zur Laufzeit auftreten, wenn das System einen Stau
+      umgehen möchte, die alternative Route aber in Konflikt mit den Wünschen
+      des Nutzers steht, muss die AI eine Entscheidung treffen, die zum
+      optimalen Weg führt.
 
-      Link: http://www.cnet.com/news/bmw-developing-artificially-intelligent-navigation/ \\
+      Link: \url{http://www.cnet.com/news/bmw-developing-artificially-intelligent-navigation/}
 
     \item{Gesichtserkennung}
-      Die AI soll in der Lage sein Gesichter auf eingelesenen/hochgeladenen Bildern zu erkennen und zu
-      verarbeiten. Neben der einfachen Erkennung der Gesichter soll das System in der Lage sein Gesichter
-      wieder zu erkennen und diesen zum Beispiel einen Namen oder eine Akte zu zuweisen. Als Eingabewerte
-      dienen Bilder. \\
+      Die AI soll in der Lage sein Gesichter auf eingelesenen bzw.
+      hochgeladenen Bildern zu erkennen und zu verarbeiten. Neben der einfachen
+      Erkennung der Gesichter soll das System in der Lage sein Gesichter wieder
+      zu erkennen und diesen zum Beispiel einen Namen oder eine Akte zu
+      zuweisen. Als Eingabewerte dienen Bilder.
 
       Warum wird Intelligenz benötigt? \\
-      Für die Erfüllung dieser Aufgabe wird Intelligenz benötigt, da das eingelesene
-      Bild im Kontext der vorhandenen Informationen interpretiert werden muss. \\
+      Für die Erfüllung dieser Aufgabe wird Intelligenz benötigt, da das
+      eingelesene Bild im Kontext der vorhandenen Informationen interpretiert
+      werden muss.
 
       Was für Schwierigkeiten treten auf? \\
-      Es können verschiedene Probleme bei der Gesichtserkennung geben, da bei den Bildern
-      der Winkel und die Beleuchtung des Bildes die Qualität des Gesichtes verschlechtern
-      können und so eine Erkennung erschweren. Außerdem muss beachtet werden, dass es keine
-      Normen, wie beim Personalausweis, gibt, da das System auch an Flughäfen oder anderen
-      öffentlichen Orten genutzt werden kann oder in sozialen Netzwerken zum Einsatz kommt. \\
+      Es können verschiedene Probleme bei der Gesichtserkennung geben, da bei
+      den Bildern der Winkel und die Beleuchtung des Bildes die Qualität des
+      Gesichtes verschlechtern können und so eine Erkennung erschweren.
+      Außerdem muss beachtet werden, dass es keine Normen, wie beim
+      Personalausweis, gibt, da das System auch an Flughäfen oder anderen
+      öffentlichen Orten genutzt werden kann oder in sozialen Netzwerken zum
+      Einsatz kommt.
 
-      Link: https://www.facebook.com/ \\
+      Link: \url{https://www.facebook.com/}
 
 \end{enumerate}
 
@@ -144,32 +150,35 @@
 
 \begin{itemize}
     \item
-        Ist die Umgebung nur \emph{teilweise beobachtbar}, so muss ggf. auf Dinge im
-        momentan nicht beobachtbaren Teil geschlossen werden.
+        Ist die Umgebung nur \emph{teilweise beobachtbar}, so muss ggf. auf
+        Dinge im momentan nicht beobachtbaren Teil geschlossen werden.
 
-        Beispiel: Ein Roboter soll sich in einem Wegenetz von einem Startpunkt zu einem
-        Enpunkt bewegen und dabei eine möglichst kurze Strecke zurücklegen.  Das
-        Wegenetz sei als Graph modelliert.  Ist dieser \emph{komplett} bekannt, kann
-        z.~B. Dijkstras Algorithmus angewandt werden, um den kürzesten Weg zu finden.
-        Andernfalls muss der Roboter einen Weg durch das Labyrinth suchen.
-
-    \item
-        \emph{Kontinuierliche} Werte lassen sich von Digitalcomputern nicht verarbeiten,
-        daher ist es oft notwendig, Werte zu \emph{diskretisieren}.
-
-        Beispiel: An den Pin eines Mikrocontrollers wird eine Spannung angelegt. Um
-        diese digital zu verarbeiten, wird sie mit Hilfe von einem A/D-Wandler in
-        diskrete Werte überführt. Dabei gehen Informationen verloren, da ein
-        Mikrocontroller Werte nur mit einer endlichen Anzahl an Bits speichern und
-        verarbeiten kann.
+        Beispiel: Ein Roboter soll sich in einem Wegenetz von einem Startpunkt
+        zu einem Endpunkt bewegen und dabei eine möglichst kurze Strecke
+        zurücklegen.  Das Wegenetz sei als Graph modelliert.  Ist dieser
+        \emph{komplett} bekannt, kann z.~B. Dijkstras Algorithmus angewandt
+        werden, um den kürzesten Weg zu finden.  Andernfalls muss der Roboter
+        einen Weg durch das Labyrinth suchen.
 
     \item
-        Das Verhalten der Umgebung ist unter Umständen nicht genau bekannt und muss
-        daher durch ein \emph{stochastisches} Modell beschrieben werden.
+        \emph{Kontinuierliche} Werte lassen sich von Digitalcomputern nicht
+        verarbeiten, daher ist es oft notwendig, Werte zu
+        \emph{diskretisieren}.
 
-        Beispiel: Es ist nicht bekannt, wann ein Kommunikationspartner kommunizieren
-        möchte, aber es kann gesagt werden, dass dies im Mittel einmal alle $t$
-        Zeiteinheiten geschieht.
+        Beispiel: An den Pin eines Mikrocontrollers wird eine Spannung
+        angelegt. Um diese digital zu verarbeiten, wird sie mit Hilfe von einem
+        A/D-Wandler in diskrete Werte überführt. Dabei gehen Informationen
+        verloren, da ein Mikrocontroller Werte nur mit einer endlichen Anzahl
+        an Bits speichern und verarbeiten kann.
+
+    \item
+        Das Verhalten der Umgebung ist unter Umständen nicht genau bekannt und
+        muss daher durch ein \emph{stochastisches} Modell beschrieben werden.
+
+        Beispiel: Es ist nicht bekannt, wann ein Kommunikationspartner
+        kommunizieren möchte, aber es kann gesagt werden, dass dies im Mittel
+        einmal alle $t$ Zeiteinheiten geschieht.
+
 \end{itemize}
 
 \end{document}
