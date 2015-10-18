@@ -23,12 +23,6 @@
 
 \newtheorem*{behaupt}{Behauptung}
 \newcommand{\gdw}{\Leftrightarrow}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\prob}{\mathbb{P}}
-\newcommand{\cov}{\operatorname{Cov}}
-\newcommand{\e}{\mathbb{E}}
-\newcommand{\var}{\operatorname{Var}}
-\newcommand{\corr}{\operatorname{Corr}}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -36,27 +30,65 @@
 \def \blattnr {1 }
 
 \lhead{GWV - Blatt \blattnr}
-\rhead{Lennart Braun, TODO}
+\rhead{Fabian Billis, Lennart Braun, Maximilian Knapperzbusch}
 \cfoot{\thepage}
 
 
 \title{Grundlagen der Wissensverarbeitung}
 \subtitle{Blatt \blattnr Hausaufgaben}
 \author{
+    Fabian Billis (TODO) \\
     Lennart Braun (6523742), \\
-    TODO
+    Maximilian Knapperzbusch (6535090) \\
+    Laurens Nikolaisen (TODO)
 }
 \date{zum 19. Oktober 2015}
 
 \begin{document}
 \maketitle
 
-\begin{enumerate}[label=\bfseries 1.\arabic*]
-    \item
+\section*{Exercise 1.1: Application Scenarios for Artificial Intelligence}
+  \begin{enumerate}
+    \item{Schach} \\
+      Die Aufgabe der AI besteht darin den Gegner auszuspielen und die Partie zu
+      gewinnen. Für die AI gegeben sind die Spielfiguren mit ihren jeweiligen
+      Eigenschaften, sowie ihrer Position auf dem Spielfeld. Des Weiteren ist der
+      Aufbau des Spielbretts bekannt.
+      Die Aufgabe ist dann erfüllt, wenn die AI ihren Gegenspieler schachmatt gesetzt
+      hat. \\
 
-    \item
+      Warum wird Intelligenz benötigt? \\
+      Für die Bewältigung dieser Aufgabe wird Intelligenz benötigt, da die aktuelle
+      Lage auf dem Spielfeld eingeschätzt werden muss und aufgrund dieser Einschätzung
+      eine Entscheidung über den nächsten Zug getroffen werden muss. Da sich die Lage
+      jederzeit auf dem Spielfeld ändern, muss die AI flexibel auf Handlungen
+      des Gegenspielers reagieren. \\
+
+      Was für Schwierigkeiten teten auf?\\
+      Schwierigkeiten können bei der Planung einer Abfolge von Spielzügen auftreten,
+      da mögliche Handlungen des Gegenspielers eingeplant bzw. erahnt werden müssen.
+      Außerdem kann es Probleme geben, der letzte Zug des Gegners die voraus geplanten
+      Züge zunichte macht, in diesem Fall muss eine neue Strategie innerhabl kürzester
+      Zeit entwickelt werden. \\
+
+      Link: http://www.shredderchess.de/online-schach-spielen.html
+
+
+
+    \item{Wegfindung}
+      Die AI soll den optimalen oder gewünschten Weg von einem Ort zum anderen finden.
+      Dabei muss unterschieden werden, ob der schnellste Weg genommen werden soll, oder
+      ob bestimmte Straßentypen nicht genutzt werden sollen, z.B. Bundesstraßen oder
+      Autobahn. Um die Aufgabe zu lösen stehen Kartenmarterial, eine GPS-Verbindung
+      sowie Informationen über die aktuelle Verkehrslage zur Verfügung.  \\
+
+      Warum wird Intelligenz benötigt? \\
+      Die AI muss in der Lage sein, die 
 
 \end{enumerate}
+
+
+\section*{Exercise 1.2: AI Terminology}
 
 
 \end{document}
