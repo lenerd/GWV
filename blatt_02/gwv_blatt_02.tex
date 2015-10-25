@@ -183,10 +183,11 @@ V = {
 
 \section*{Exercise \blattnr.2: Search Space 2}
 \begin{enumerate}
+	\item 
 	Wir definieren den Zustandsraum als Graph $G = (V, E)$. $V$ beschreibt die Stellung der Spieler auf 
 	dem Schachbrett. Der Startzustand beschreibt die Startellung der Figuren und sagt, dass der Spieler
-	der weißen Figuren am Zug ist: $Start: {(Startstellung, weiß)}$. \\
-	Die Endzustände beschreiben welcher Spieler den anderen schachmatt gesetzt hat: $Ende: {(St, Sp)}$ 
+	der weißen Figuren am Zug ist: $Start = \{(Startstellung, weiss)\}$. \\
+	Die Endzustände beschreiben welcher Spieler den anderen schachmatt gesetzt hat: $Ende = \{(St, Sp)\}$ 
 	beschreibt, dass der König auf der Stellung $Sp$ schachmatt gesetzt wurde. \\
 	Die Transitionen beschreiben die einzelnen Züge der Spieler und sehen wie folgt aus: \\
 	$(St, Sp) \rightarrow (St', Sp')$, wenn $Sp != Sp'$ ist, dann gibt es einen Zug von $Sp$ von der 
