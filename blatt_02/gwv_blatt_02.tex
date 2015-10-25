@@ -173,11 +173,26 @@ V = {
                 \end{equation*}
 
             \item
+			Das Rätsel kann nicht gelöst werden, wenn man den Wein nicht wegschütten darf. Es ist jedoch 
+			möglich, dass Rätseln mit eingeschränkten Regeln zu lösen, wenn die $2$  gewünschten Liter 
+			Wein, in dem $3$ Liter Krug sein dürfen. \\
 
         \end{enumerate}
 
 \end{enumerate}
 
 \section*{Exercise \blattnr.2: Search Space 2}
+\begin{enumerate}
+	Wir definieren den Zustandsraum als Graph $G = (V, E)$. $V$ beschreibt die Stellung der Spieler auf 
+	dem Schachbrett. Der Startzustand beschreibt die Startellung der Figuren und sagt, dass der Spieler
+	der weißen Figuren am Zug ist: $Start: {(Startstellung, weiß)}$. \\
+	Die Endzustände beschreiben welcher Spieler den anderen schachmatt gesetzt hat: $Ende: {(St, Sp)}$ 
+	beschreibt, dass der König auf der Stellung $Sp$ schachmatt gesetzt wurde. \\
+	Die Transitionen beschreiben die einzelnen Züge der Spieler und sehen wie folgt aus: \\
+	$(St, Sp) \rightarrow (St', Sp')$, wenn $Sp != Sp'$ ist, dann gibt es einen Zug von $Sp$ von der 
+	Stellung $St$ nach $St'$. \\
+	
+\end{enumerate}
+
 
 \end{document}
