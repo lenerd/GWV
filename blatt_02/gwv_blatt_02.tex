@@ -1,0 +1,183 @@
+\documentclass[a4paper]{scrartcl}
+
+% font/encoding packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage[ngerman=ngerman-x-latest]{hyphsubst}
+
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{array}
+\usepackage{stmaryrd}
+\usepackage{marvosym}
+\allowdisplaybreaks
+\usepackage[output-decimal-marker={,}]{siunitx}
+\usepackage[shortlabels]{enumitem}
+\usepackage[section]{placeins}
+\usepackage{float}
+\usepackage{units}
+\usepackage{listings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.12}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+
+\newtheorem*{behaupt}{Behauptung}
+\newcommand{\gdw}{\Leftrightarrow}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\def \blattnr {2}
+
+\lhead{GWV - Blatt {\blattnr}}
+\rhead{Billis, Braun, Knapperzbusch, Nikolaisen}
+\cfoot{\thepage}
+
+
+\title{Grundlagen der Wissensverarbeitung}
+\subtitle{Blatt {\blattnr} Hausaufgaben}
+\author{
+    Fabian Billis (6720351) \\
+    Lennart Braun (6523742), \\
+    Maximilian Knapperzbusch (6535090) \\
+    Laurens Nikolaisen (TODO) \\
+    Foo Bar (TODO)
+}
+\date{zum 26. Oktober 2015}
+
+\begin{document}
+\maketitle
+
+\section*{Exercise \blattnr.1: Search Space 1}
+\begin{enumerate}
+    \item
+        Wir würden den Zustandsraum als Graphen $G = (V,E)$ modellieren.
+        Seien $H$ die Menge der Haltestellen und $T$ eine diskrete Menge von
+        Zeiteinheiten, die den zu betrachtenden Zeitraum beschreibt (z.~B.
+        Minuten ab Beginn des Betriebs). Weiterhin enthalte $L$ alle Bus- und
+        Bahnlinien.
+        Die Menge unserer Zustände sei dann $V = H \times T$ und enthält damit
+        jede Haltestelle zu jedem Zeitpunkt.
+        Die Kanten $E \subseteq V \times V \times L$ repräsentieren die
+        vorhandenen Verbindungen zwischen den Haltestellen mit Beachtung der
+        Fahrzeit.
+
+        Beispiel:
+        Betrachen wir die Linie 281, die zum Zeitpunkt $t_0$ an der Haltestelle
+        Informatikum abfährt, um $t_1$ am Rathaus Stellingen hält und
+        Hagenbecks Tierpark um $t_2$ erreicht. Dann enthält $E$ die Kanten
+        \begin{gather*}
+            (Informatikum, t_0) \overset{281}{\to} (Rathaus\_Stellingen, t_1) \\
+        \text{und} \\
+        (Rathaus\_Stellingen, t_1) \overset{281}{\to} (Hagenbecks\_Tierpark, t_2)
+        \text{ .}
+        \end{gather*}
+        In diesem Fall wird die Zeit, in der der Bus an der Haltestelle steht
+        nicht gesondert modelliert.
+
+        Es kann bzw. muss natürlich auch gewartet werden, d.~h. $(h,t)
+        \overset{\lambda}{\to} (h, u)$ für alle Haltestellen $h \in H$ und
+        Zeitpunkte $t,u \in T$ mit $t < u$.
+
+    \item
+        \begin{enumerate}[label=(\alph*)]
+            \item
+                Die Menge der Zustände sei
+                \begin{equation*}
+                    V = \{0,1,2,3,4\} \times \{0,1,2,3\} \text{ ,}
+                \end{equation*}
+                wobei $(a,b) \in V$ bedeutet, dass der größere Krug $a$ Liter
+                und der kleinere $b$ Liter enthält.
+                Eine explizite Auflistung aller Zustände:
+                \begin{lstlisting}
+In [1]: print('V = {\n' +
+                    ',\n'.join(str((a,b)) for a in range(5)
+                                          for b in range(4)) +
+                    '\n}')
+V = {
+    (0, 0),
+    (0, 1),
+    (0, 2),
+    (0, 3),
+    (1, 0),
+    (1, 1),
+    (1, 2),
+    (1, 3),
+    (2, 0),
+    (2, 1),
+    (2, 2),
+    (2, 3),
+    (3, 0),
+    (3, 1),
+    (3, 2),
+    (3, 3),
+    (4, 0),
+    (4, 1),
+    (4, 2),
+    (4, 3)
+}
+
+                \end{lstlisting}
+
+                Zu Beginn sind beide Krüge leer, der Startzustand ist also
+                $(0,0)$. Das Ziel ist, im größeren Krug 2 Liter Wasser zu
+                haben.  Die Menge der Zielzustände ist also $F = \{(a,b) \in V
+                \ |\ a = 2\}$.
+
+
+                Die Transitionen definieren wir als (rekursive) Funktionen.
+                \begin{itemize}
+                    \item Einen Krug aus der Pumpe befüllen:
+                        \begin{align*}
+                            pa(a,b) &= (4,b) \\
+                            pb(a,b) &= (a,3) \\
+                        \end{align*}
+                    \item Einen Krug in den Abfluss entleeren:
+                        \begin{align*}
+                            ad(a,b) &= (0,b) \\
+                            bd(a,b) &= (a,0) \\
+                        \end{align*}
+                    \item Den Inhalt des einen Kruges soweit wie möglich in den
+                        zweiten überführen:
+                        \begin{align*}
+                            ab(a,b) &=
+                            \begin{cases}
+                                (a,b) & \text{if } a = 0 \lor b = 3 \\
+                                ab(a-1,b+1) & \text{else}
+                            \end{cases} \\
+                            ba(a,b) &=
+                            \begin{cases}
+                                (a,b) & \text{if } a = 4 \lor b = 0 \\
+                                ab(a+1,b-1) & \text{else}
+                            \end{cases} \\
+                        \end{align*}
+                \end{itemize}
+
+                Eine Lösungsmöglichkeit ist die folgende:
+                \begin{equation*}
+                    (0,0)
+                    \overset{pa}{\to}
+                    (4,0)
+                    \overset{ab}{\to}
+                    (1,3)
+                    \overset{bd}{\to}
+                    (1,0)
+                    \overset{ab}{\to}
+                    (0,1)
+                    \overset{pa}{\to}
+                    (4,1)
+                    \overset{ab}{\to}
+                    (2,3)
+                \end{equation*}
+
+            \item
+
+        \end{enumerate}
+
+\end{enumerate}
+
+\section*{Exercise \blattnr.2: Search Space 2}
+
+\end{document}
