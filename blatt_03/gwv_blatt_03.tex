@@ -1,0 +1,150 @@
+\documentclass[a4paper]{scrartcl}
+
+% font/encoding packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage[ngerman=ngerman-x-latest]{hyphsubst}
+
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{array}
+\usepackage{stmaryrd}
+\usepackage{marvosym}
+\allowdisplaybreaks
+\usepackage[output-decimal-marker={,}]{siunitx}
+\usepackage[shortlabels]{enumitem}
+\usepackage[section]{placeins}
+\usepackage{float}
+\usepackage{units}
+\usepackage{listings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.12}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage[newfloat]{minted}
+
+\lstset{
+    language=Python,
+    numbers=left,
+    frame=single,
+    basicstyle=\footnotesize\ttfamily,
+    otherkeywords={with,as},
+}
+
+\newtheorem*{behaupt}{Behauptung}
+\newcommand{\gdw}{\Leftrightarrow}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\def \blattnr {3}
+
+\lhead{GWV - Blatt {\blattnr}}
+\rhead{Billis, Braun, Knapperzbusch, Nikolaisen, Bar}
+\cfoot{\thepage}
+
+
+\title{Grundlagen der Wissensverarbeitung}
+\subtitle{Blatt {\blattnr} Hausaufgaben}
+\author{
+    Fabian Billis (6720351) \\
+    Lennart Braun (6523742), \\
+    Maximilian Knapperzbusch (6535090) \\
+    Laurens Nikolaisen (6527179) \\
+    Foo Bar (TODO)
+}
+\date{zum 2. November 2015}
+
+\begin{document}
+\maketitle
+
+\section*{Exercise \blattnr.1: Blind Search}
+\begin{enumerate}
+    \item
+        Das Labyrinth wird als 2D-Array innerhalb eines Objektes der Klasse
+        \texttt{Grid} (siehe Listing \ref{lst:search}) gespeichert.  Ein Knoten
+        ist ein Indexpaar einer Arrayzelle.  Jeder Knoten ist mit den vertikal
+        oder horizontal benachbarte Knoten sind über Kanten verbunden.
+        \texttt{Grid} stellt eine \texttt{neighbours} Methode zur Verfügung,
+        welche die benachberten Knoten als Liste zurückgibt.  Weiterhin
+        speichert \texttt{Grid} die Startposition und enthält Methoden, um zu
+        prüfen, ob eine Position ein Ziel oder blockiert ist.
+
+    \item
+        Siehe Listing \ref{lst:search}.
+
+    \item
+        Siehe Listing \ref{lst:search}.
+
+    \item
+        Es muss sich gemerkt werden, welche Felder schon besucht wurden.
+        Andernfalls könnte die DFS endlos im Kreis laufen. Die BFS würde
+        unnötig viele Pfade in Betracht ziehen.
+
+        Die DFS findet nicht unbedingt den kürzesten Pfad.
+
+        Die Reihenfolge, in der die benachbarten Felder betrachtet werden, hat
+        Einfluss auf den zrückgegebenen Pfad. Insbesondere bei der DFS hat
+        die Reihenfolge auch Einfluss auf die Länge des gefundenen Pfads.
+
+        \clearpage
+    \item
+        Die Umgebung könnte nicht berandet sein.
+        \begin{verbatim}
+                  
+       xxx        
+       x xxxxx    
+   s     x        
+       x x  xxxxxx
+  xx xxxxx        
+      x      g    
+      x           
+        \end{verbatim}
+        Es könnten mehrere Startpunkte existieren.
+        \begin{verbatim}
+xxxxxxxxxxxxxxxxxxxx
+x                  x
+x       xxx        x
+x       x xxxxx    x
+x   s     x        x
+x       x x  xxxxxxx
+x  xx xxxxx        x
+x      x      g  s x
+x      x           x
+xxxxxxxxxxxxxxxxxxxx
+        \end{verbatim}
+
+    \item
+        Unbegrenzes Feld:
+        Ist klar, dass alle „wichtigen“ Dinge innerhalb des sichtbaren Feldes
+        liegen, so kann eine künstliche Begrenzung hinzugefügt werden.  Ist das
+        Feld unendlich groß und wird dynamisch generiert, so ist es möglich,
+        dass die DFS nicht terminiert.  Eine BFS oder die Iterative Deepening
+        Strategie terminieren immer, so lange ein endlicher Pfad zu einem Ziel
+        existiert.
+
+        Mehrere Startpunkte:
+        Kann von mehreren Knoten aus gestartet werden und die Termination des
+        Suchalgorithmus ist garantiert, so kann die Suche nacheinander von
+        allen Startknoten aus ausgeführt werden, bis ein Ziel gefunden wurde.
+        Ist die Termination nicht garantiert, so müssen die Suchen nebenläufig
+        ausgeführt werden. In den Instanzen der Suchen werden abwechselnd
+        jeweils eine begrenzte Anzahl an Schritten ausgeführt. Dies garantiert
+        Termination, falls eine der Suchen erfolgreich ist.
+
+\end{enumerate}
+
+\clearpage
+
+%\lstinputlisting[%
+%    caption=search.py,
+%    label=lst:search,
+%]{search.py}
+\captionof{listing}{search.py \label{lst:search}}
+\inputminted[%
+    linenos,
+    frame=lines,
+]{python}{search.py}
+
+\end{document}
