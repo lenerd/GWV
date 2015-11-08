@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
+import sys
 import numpy as np
 import heapq
 import itertools as it
 import functools as fn
-import sys
+from collections import deque
 
 
 class Grid:
@@ -17,7 +18,8 @@ class Grid:
             - every line as the same length
             - it contains exact one start position
             - it has an impassable border of 'x's
-            - TODO: portals
+            - it has a maximum of nine pairs of portals, marked with digits
+              starting at 1
         """
         with open(filename, 'r') as f:
             self.data = np.array([list(l) for l in f.read().splitlines()])
@@ -44,7 +46,6 @@ class Grid:
 
         return
 
-        # TODO: calc heuristic
     def neighbours(self, pos):
         """Returns the adjacent and not blocked positions.
 
@@ -145,7 +146,7 @@ def a_star(grid, verbose=False):
         stats['time'] += 1
         stats['space'] = max(stats['space'], sum(len(p) for p in frontier))
         _, cost, path = heapq.heappop(frontier)
-        if verbose and False:
+        if verbose:
             print(grid.print_path(path))
         cost += 1
         for pos in grid.neighbours(path[-1]):
@@ -161,13 +162,77 @@ def a_star(grid, verbose=False):
     return float('inf'), [], stats
 
 
+def bfs_dfs(grid, alg, verbose=False):
+    """Starts a search for a goal from the start node.
+
+    Parameter:
+        grid    -- instance of Grid to work on
+        alg     -- algorithm to use
+                    'bfs' -> breadth-first search
+                    'dfs' -> depth-first search
+        verbose -- prints the current path on every step
+
+    Returns:
+        Path from start to a goal if one is found,
+        else an empty list.
+    """
+    assert alg in ['bfs', 'dfs']
+    stats = {'time': 0, 'space': 0}
+    marked = np.zeros(grid.data.shape, dtype=bool)
+    marked[grid.start] = True
+    frontier = deque([[grid.start]])
+    # use the deque as stack or queue
+    select = frontier.pop if alg == 'dfs' else frontier.popleft
+    while frontier:  # is not empty
+        stats['time'] += 1
+        stats['space'] = max(stats['space'], sum(len(p) for p in frontier))
+        path = select()
+        if verbose:
+            print(grid.print_path(path))
+        for pos in grid.neighbours(path[-1]):
+            if marked[pos]:
+                continue
+            if grid.is_goal(pos):
+                return len(path), path + [pos], stats
+            else:
+                marked[pos] = True
+                frontier.append(path + [pos])
+    return float('inf'), [], stats
+
+
+def search(grid, alg, verbose=False):
+    """Runs a search with the specified algorithm."""
+    if alg == 'A*':
+        return a_star(grid, verbose)
+    else:
+        return bfs_dfs(grid, alg, verbose)
+
+
 if __name__ == '__main__':
     if len(sys.argv) != 2:
         print("Labyrinth as first argument.", file=sys.stderr)
         sys.exit(1)
     g = Grid(sys.argv[1])
+
     print("A* search")
-    cost, p, stats = a_star(g, verbose=True)
+    cost, p, stats = search(g, 'A*', verbose=False)
+    print(g.print_path(p))
+    print(p)
+    print("length: {}".format(cost))
+    print("time:  {} iterations".format(stats['time']))
+    print("space: {} nodes in the frontier".format(stats['space']))
+
+    print("\nBreadth-first search")
+    cost, q, stats = search(g, 'bfs', verbose=False)
+    print(g.print_path(q))
+    print(q)
+    print("length: {}".format(cost))
+    print("time:  {} iterations".format(stats['time']))
+    print("space: {} nodes in the frontier".format(stats['space']))
+
+    print("\nDepth-first search")
+    cost, p, stats = search(g, 'dfs', verbose=False)
+    print(g.print_path(p))
     print(p)
     print("length: {}".format(cost))
     print("time:  {} iterations".format(stats['time']))

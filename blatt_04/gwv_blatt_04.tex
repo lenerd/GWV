@@ -41,7 +41,7 @@
 \def \blattnr {4}
 
 \lhead{GWV - Blatt {\blattnr}}
-\rhead{Billis, Braun, Knapperzbusch, Nikolaisen, Bar}
+\rhead{Billis, Braun, Knapperzbusch, Nikolaisen}
 \cfoot{\thepage}
 
 
@@ -52,7 +52,6 @@
     Lennart Braun (6523742), \\
     Maximilian Knapperzbusch (6535090) \\
     Laurens Nikolaisen (6527179) \\
-    Foo Bar (TODO)
 }
 \date{zum 9. November 2015}
 
@@ -63,9 +62,9 @@
 
 \begin{enumerate}
     \item
-        Als Heuristik haben wir die Manhattan Distanz gewählt. Diese entspräche
+        Als Heuristik haben wir die Manhattan-Distanz gewählt. Diese entspräche
         der Länge der kürzesten Pfade, wenn es keine Hindernisse gäbe.
-        Daher ist die Manhattan Distanz eine optimistische Heuristik und eine
+        Daher ist die Manhattan-Distanz eine optimistische Heuristik und eine
         untere Schranke für die Länge des Pfades.
 
     \item
@@ -74,9 +73,54 @@
         wurde.
 
     \item
+        Befindet sich ein Knoten neben einem Portal, so wird der Ausgangsknoten
+        des Portals als Nachbar bezeichnet.
+        Der kürzeste Pfad zum Ziel könnte jedes Paar von Portalen einmal in
+        einer Richtung benutzen oder auch nicht. Die mehrmalige Benutzung von
+        Portalen würde einen Kreis darstellen und ist damit überflüssig.
+
+        Durch die Portale ist nicht mehr gesichert, dass die Manhattan-Distanz
+        eine optimistische Abschätzung ist.
+        Daher berechnen wir zunächst Abschätzungen für jeden Portaleingang.
+        Diese entspricht der minimalen Summe der Manhattan-Distanzen zwischen
+        den Portalen und der anschließenden Manhatten-Distanz zum Ziel auf
+        allen Routen unter möglicher Verwendung der die existierenden Portale.
+        Die Anzahl der Routen steigt exponentiell mit der Anzahl der Portale.
+        Daher ist diese Vorgehensweise nur bei wenigen Portalen zu empfehlen.
+
+        Während der A*-Suche wird als Heuristic für einen Knoten das Minimum
+        der Manhatten-Distanz zum Ziel und den Manhattan-Distanzen zu allen
+        Portaleingängen verwendet.
+        
 
     \item
-
+        Tabelle \ref{tab:time-space} zeigt eine Übersicht, wie sich die drei
+        implementierten Algorithmen in den drei Labyrinthen geschlagen haben.
+        Die Auswahl der Nachbarknoten folgt einer willkürlich gewählten
+        Reihenfolge.
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{|l|r|r|r|}
+                \hline
+                Algorithm & Time & Space & Length \\ \hline
+                \multicolumn{4}{|l|}{\texttt{blatt3\_environment.txt}} \\ \hline
+                A*  &  85 &  39 & 25 \\ \hline
+                BFS &  92 & 124 & 25 \\ \hline
+                DFS &  62 & 653 & 49 \\ \hline
+                \multicolumn{4}{|l|}{\texttt{blatt4\_environment\_a.txt}} \\ \hline
+                A*  &  99 &  39 & $\infty$ \\ \hline
+                BFS &  99 &  94 & $\infty$ \\ \hline
+                DFS &  99 & 614 & $\infty$ \\ \hline
+                \multicolumn{4}{|l|}{\texttt{blatt4\_environment\_b.txt}} \\ \hline
+                A*  &  21 &  51 & 11 \\ \hline
+                BFS &  79 & 121 & 11 \\ \hline
+                DFS &  19 & 144 & 37 \\ \hline
+            \end{tabular}
+            \caption{Time als Anzahl der Iterationen; Space als Anzahl der
+            Knoten in allen Pfaden der Frontier}
+            \label{tab:time-space}
+        \end{table}
+i
 \end{enumerate}
 
 
