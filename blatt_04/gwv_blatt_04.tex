@@ -63,8 +63,15 @@
 
 \begin{enumerate}
     \item
+        Als Heuristik haben wir die Manhattan Distanz gewählt. Diese entspräche
+        der Länge der kürzesten Pfade, wenn es keine Hindernisse gäbe.
+        Daher ist die Manhattan Distanz eine optimistische Heuristik und eine
+        untere Schranke für die Länge des Pfades.
 
     \item
+        Da unsere Implementation jeden schon besuchten Knoten markiert,
+        terminiert die Suche, sobald jeder der endlich vielen Knoten besucht
+        wurde.
 
     \item
 
