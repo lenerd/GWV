@@ -33,8 +33,8 @@ class Grid:
         assert len(tmp[0]) != 0  # a goal node exists
         self.goal = (tmp[0][0], tmp[1][0])
 
-        self.portals = set()
-        self.portal_dst = {}
+        self.portals = set()  # set of portal pairs
+        self.portal_dst = {}  # destination of a portal
         for i in range(1, 10):
             tmp = np.where(self.data == str(i))
             if len(tmp[0]) != 2:
@@ -93,9 +93,9 @@ def portal_routes(portal_pairs):
         return p[1], p[0]
 
     routes = set()
-    for l in range(len(portal_pairs) + 1):
-        for p in it.permutations(portal_pairs, l):
-            for s in it.product([0, 1], repeat=l):
+    for l in range(len(portal_pairs) + 1):  # use any number of portal pairs
+        for p in it.permutations(portal_pairs, l):  # use them in any order
+            for s in it.product([0, 1], repeat=l):  # use them in any direction
                 routes.add(tuple(pi if si else swap(pi)
                                  for pi, si in zip(p, s)))
     return routes
@@ -110,7 +110,8 @@ def portal_heuristic(grid):
     for p_start in grid.portal_dst:
         min_dist = manhattan(p_start, grid.goal)
         for route in filter(lambda x: len(x) and x[0][0] == p_start, pr):
-            s = sum(manhattan(route[i][1], route[i+1][0]) for i in range(len(route)-1))
+            s = sum(manhattan(route[i][1], route[i+1][0])
+                    for i in range(len(route)-1))
             s += manhattan(route[-1][1], grid.goal)
             min_dist = min(min_dist, s)
         heuristics[p_start] = min_dist
@@ -121,7 +122,7 @@ def heuristic(pos, grid, p_heuristic):
     """Returns a lower bound of the distance from pos to grid.goal."""
     min_dist = manhattan(pos, grid.goal)
     for p_start in grid.portal_dst:
-        min_dist = min(min_dist, manhattan(pos, p_start) +  p_heuristic[p_start])
+        min_dist = min(min_dist, manhattan(pos, p_start) + p_heuristic[p_start])
     return min_dist
 
 
@@ -133,8 +134,10 @@ def a_star(grid, verbose=False):
         verbose -- prints the current path on every step
 
     Returns:
-        Cost, Path from start to a goal if one is found,
+        Cost
+        Path from start to a goal if one is found,
         else an empty list.
+        Stats
     """
     stats = {'time': 0, 'space': 0}
     p_heuristic = portal_heuristic(grid)
@@ -173,8 +176,10 @@ def bfs_dfs(grid, alg, verbose=False):
         verbose -- prints the current path on every step
 
     Returns:
+        Cost
         Path from start to a goal if one is found,
         else an empty list.
+        Stats
     """
     assert alg in ['bfs', 'dfs']
     stats = {'time': 0, 'space': 0}
@@ -215,7 +220,7 @@ if __name__ == '__main__':
     g = Grid(sys.argv[1])
 
     print("A* search")
-    cost, p, stats = search(g, 'A*', verbose=False)
+    cost, p, stats = search(g, 'A*', verbose=True)
     print(g.print_path(p))
     print(p)
     print("length: {}".format(cost))
