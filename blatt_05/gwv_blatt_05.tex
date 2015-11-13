@@ -83,11 +83,11 @@
             Hier wird eine Kante von dem Knoten n, der oben auf dem Stack ist, zu dem nächsten Eingabeknoten n' erstellt.
             Dies muss ebenfalls durch eine entsprechende Regel der Grammatik erlaubt sein. Der Knoten n' wird anschließend oben auf den Stack geschoben.
             
-            \textbf{reduce}
+            \textbf{reduce} $\langle n|S,I,A\rangle \rightarrow \langle S,I,A \rangle$
             
             Der Knoten n, der oben auf dem Stack liegt, wird von diesem entfernt. Diese Operation wird dann gebraucht, wenn ein Knoten mehrere abhängige Knoten nach rechts hat. Dann müssen zuerst die Knoten vom Stack entfernt werden, die näher an dem Knoten  liegen, bevor die Knoten, die weiter entfernt sind, hinzugefügt werden können. Dabei muss der Knoten, der entfernt wird, einen Kopf haben.
             
-            \textbf{shift}
+            \textbf{shift} $\langle S,n|I,A\rangle \rightarrow \langle n|S,I,A \rangle$
             
             Der nächste Eingabeknoten wird auf den Stack geschoben. Shift wird benötigt, wenn ein Knoten mehrere abhängige Knoten nach links hat. Diese Knoten müssen dann zuerst durch reduce vom Stack entfernt werden, bevor sie in der richtigen Reihenfolge wieder hinzugefügt werden. Für diese Operation gibt es nur die Bedingung, dass die Eingabeliste nicht leer ist.
         }
