@@ -22,6 +22,11 @@
 \pgfplotsset{compat=1.12}
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage{verbatim}
+
 %\usepackage[newfloat]{minted}
 
 \lstset{
@@ -64,12 +69,207 @@
     \item
         \begin{enumerate}[label=(\alph*)]
             \item
+            
+            {
+            
+            \textbf{left-arc}   $\langle n|S,n'|I,A\rangle \rightarrow \langle,n'|I,A \cup \{(n',n)\}\rangle$
+            
+            Es wird eine Kante von dem nächsten Eingabeknoten n' zu dem Knoten n, der oben auf dem Stack ist erstellt.
+            Anschließend wird n vom Stack entfernt. Dies kann nur durchgeführt werden, wenn die Grammatik die entsprechende Regel LEX(n) $\leftarrow$ LEX(n') enthält und es keine weitere Kante zum Knoten n gibt. 
+            
+            \textbf{right-arc} $\langle n |S, n' | I, A \rangle \rightarrow \langle n'|n|S, I, A \cup \{(n, n')\}\rangle$ 
+            
+            
+            Hier wird eine Kante von dem Knoten n, der oben auf dem Stack ist, zu dem nächsten Eingabeknoten n' erstellt.
+            Dies muss ebenfalls durch eine entsprechende Regel der Grammatik erlaubt sein. Der Knoten n' wird anschließend oben auf den Stack geschoben.
+            
+            \textbf{reduce}
+            
+            Der Knoten n, der oben auf dem Stack liegt, wird von diesem entfernt. Diese Operation wird dann gebraucht, wenn ein Knoten mehrere abhängige Knoten nach rechts hat. Dann müssen zuerst die Knoten vom Stack entfernt werden, die näher an dem Knoten  liegen, bevor die Knoten, die weiter entfernt sind, hinzugefügt werden können. Dabei muss der Knoten, der entfernt wird, einen Kopf haben.
+            
+            \textbf{shift}
+            
+            Der nächste Eingabeknoten wird auf den Stack geschoben. Shift wird benötigt, wenn ein Knoten mehrere abhängige Knoten nach links hat. Diese Knoten müssen dann zuerst durch reduce vom Stack entfernt werden, bevor sie in der richtigen Reihenfolge wieder hinzugefügt werden. Für diese Operation gibt es nur die Bedingung, dass die Eingabeliste nicht leer ist.
+        }
+			
+            \item
+            {
+            \textbf{termination} $\langle S, \textbf{nil}, A \rangle$
+            
+            Der Algorithmus terminiert, sobald er eine Konfiguration erreicht, welche $\langle S, \textbf{nil}, A \rangle$ beinhaltet. Wir befinden uns nun in einem Zustand, in welchem die Eingabe zu Ende gelesen wurde. Dies bedeutet, dass der der Eingabe-String $W$ "geparsed" \ wurde, somit der der Input-Token die leere Menge \textf{nil} darstellt. Ob noch Daten auf dem Stack liegen ist unerheblich.
+	        }
 
             \item
-
+            {
+            \textbf{dependency graph}
+            directed graph D= (N_W, A)
+            nodes N_W set of tokens in W
+            
+            Jeder Knoten ist ein Symbol/Wort/Satzbaustein des zu analysierenden Satzes.
+            
+            Wohlgeformtheit:
+            * Single head  $(\forall n n' n'') (n \rightarrow n' \land n'' \rightarrow n') \Rightarrow n = n''$
+            
+            Jeder Knoten hat genau einen Vaterknoten.
+            
+            * Acyclic      $(\forall n n') \lnot (n \rightarrow n' \land n' \rightarrow^\ast n)$
+            
+            Der Graph enthält keine Zyklen, wodurch der komplette Graph gelesen werden kann, ohne dass eine Suche in einer Schleife landet und andere Knoten nicht mehr beachtet bzw. gefunden/gelesen werden. Durch diese Eigenschaft ist auch Irreflexivität gegeben, da kein Knoten eine Kante zu sich selbst haben darf, nach der Regel.
+            
+            * Connected    $(\forall n n') n \leftrightarrow^\ast n'$
+            
+            Es existiert ein Pfad von jedem Knoten zu jedem Knoten in den Graph.
+            
+            * Projective   $(\forall n n' n'') (n \leftrightarrow n') \land n < n'' < n') \rightarrow (n \rightarrow^\ast n'' \lor n' \rightarrow^\ast n'')$
+	        }
+            
             \item
+            Es ist nicht möglich, wie in der Aufgabe gefordert, einen "`dependency tree"' zu konstruieren, der die Eigenschaften des Parsers verletzt. Eine Baumstruktur beschreibt bereits einen Datensatz, welcher ungerichtete Kanten besitzt, azyklisch und zusammenhängend ist. Wir können stattdessen jedoch wie im Paper angegeben einen Graphen konstruieren, der diese Eigenschaften verletzt.
+            
+            Als vergleich sei zunächst ein korrekter Graph gegeben. Dier erfüllt die folgenden Bedingungen.
+            
+            \begin{itemize}
+            	\item Single Head
+            	\item Acyclic
+            	\item Connected
+            	\item Projective
+            \end{itemize}
+            
+\begin{figure}[H]
+	\centering
 
-            \item
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+semithick]
+\tikzstyle{every state}=[draw=black,text=black]
+
+\node[initial,state] (A)                    {$A$};
+\node[state]         (B) [below left of=A] 	{$B$};
+\node[state]         (C) [below right of=A] {$C$};
+\node[state]         (D) [below left of=B] 	{$D$};
+\node[state]         (E) [below right of=B] {$E$};
+
+\path 
+	(A) edge (B)
+	(A) edge (C)
+	(B) edge (D)
+	(B) edge (E)
+	(A) edge (C);
+
+
+\end{tikzpicture}
+	
+	\caption{Korrekter Pfad}
+	\label{fig:P01}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	
+	\begin{tikzpicture}[[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+	semithick]
+	\tikzstyle{every state}=[draw=black,text=black]
+	
+	\node[initial,state] (A)                    {$A$};
+	\node[state]         (B) [below left of=A] 	{$B$};
+	\node[state]         (C) [below right of=A] {$C$};
+	\node[state]         (D) [below left of=B] 	{$D$};
+	\node[state]         (E) [below right of=B] {$E$};
+	
+	\path 
+	(A) edge (B)
+	(A) edge (C)
+	(B) edge (D)
+	(B) edge (E)
+	(C) edge (E);
+	
+	
+	\end{tikzpicture}
+	
+	\caption{"`Single Head"'-Bedingung verletzt}
+	\label{fig:P01}
+\end{figure}
+
+\begin{figure}
+	\centering
+	
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+	semithick]
+	\tikzstyle{every state}=[draw=black,text=black]
+	
+	\node[initial,state] (A)                    {$A$};
+	\node[state]         (B) [below left of=A] 	{$B$};
+	\node[state]         (C) [below right of=A] {$C$};
+	\node[state]         (D) [below left of=B] 	{$D$};
+	\node[state]         (E) [below right of=B] {$E$};
+	
+	\path 
+	(A) edge (B)
+	(A) edge (C)
+	(B) edge (D)
+	(D) edge (E)
+	(E) edge (B)
+	(A) edge (C);
+	
+	
+	\end{tikzpicture}
+	
+	\caption{"`Acyclic"'-Bedingung verletzt}
+	\label{fig:P01}
+\end{figure}
+
+\begin{figure}
+	\centering
+	
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+	semithick]
+	\tikzstyle{every state}=[draw=black,text=black]
+	
+	\node[initial,state] (A)                    {$A$};
+	\node[state]         (B) [below left of=A] 	{$B$};
+	\node[state]         (C) [below right of=A] {$C$};
+	\node[state]         (D) [below left of=B] 	{$D$};
+	\node[state]         (E) [below right of=B] {$E$};
+	
+	\path 
+	(A) edge (B)
+	(A) edge (C)
+	(B) edge (D)
+	(A) edge (C);
+	
+	
+	\end{tikzpicture}
+	
+	\caption{"`Connected"'-Bedingung verletzt}
+	\label{fig:P01}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+	semithick]
+	\tikzstyle{every state}=[draw=black,text=black]
+	
+	\node[initial,state] (A)                    {$A$};
+	\node[state]         (B) [below left of=A] 	{$B$};
+	\node[state]         (C) [below right of=A] {$C$};
+	\node[state]         (D) [below left of=B] 	{$D$};
+	\node[state]         (E) [below right of=B] {$E$};
+	
+	\path 
+	(A) edge (B)
+	(A) edge (C)
+	(B) edge (D)
+	(B) edge (E)
+	(A) edge (C);
+	
+	
+	\end{tikzpicture}
+	
+	\caption{"`Projective-Bedingung"' verletzt}
+	\label{fig:P01}
+\end{figure}
 
         \end{enumerate}
 
