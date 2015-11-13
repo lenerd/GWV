@@ -74,6 +74,68 @@
         \end{enumerate}
 
     \item
+        \begin{align*}
+            \emph{d} &= Der \\
+            \emph{m} &= Mann \\
+            \emph{i} &= isst \\
+            \emph{e} &= eine \\
+            \emph{g} &= Giraffe \\
+            W &= Der\ Mann\ isst\ eine\ Giraffe  = dmieg \\
+            I &= [(0, Der), (1, Mann), (2, isst), (3, eine), (4, Giraffe)] \\
+            N_W &= \{(0, Der), (1, Mann), (2, isst), (3, eine), (4, Giraffe)\}
+        \end{align*}
+        \begin{gather*}
+            \Big\langle \mathbf{nil},\ 
+            \big[ (0, d), (1, m), (2, i), (3, e), (4, g) \big],\ 
+            \emptyset \Big\rangle \\
+            \xrightarrow{\text{Shift}} \\
+            \Big\langle \big[ (0, d) \big],\ 
+            \big[ (1, m), (2, i), (3, e), (4, g) \big],\ 
+            \emptyset \Big\rangle \\
+            \xrightarrow{\text{Left-Arc}} \\
+            \Big\langle \mathbf{nil},\ 
+            \big[ (1, m), (2, i), (3, e), (4, g) \big],\ 
+            \big\{ \langle(1, m), (0, d) \rangle
+            \big\} \Big\rangle \\
+            \xrightarrow{\text{Shift}} \\
+            \Big\langle \big[ (1, m) \big],\ 
+            \big[ (2, i), (3, e), (4, g) \big],\ 
+            \big\{ \langle (1, m), (0, d) \rangle
+            \big\} \Big\rangle \\
+            \xrightarrow{\text{Left-Arc}} \\
+            \Big\langle \mathbf{nil},\
+            \big[ (2, i), (3, e), (4, g) \big],\ 
+            \big\{ \langle (1, m), (0, d) \rangle,
+                   \langle (2, i), (1, m) \rangle
+            \big\} \Big\rangle \\
+            \xrightarrow{\text{Shift}} \\
+            \Big\langle \big[ (2, i) \big],\ 
+            \big[ (3, e), (4, g) \big],\ 
+            \big\{ \langle (1, m), (0, d) \rangle, 
+                   \langle (2, i), (1, m) \rangle
+            \big\} \Big\rangle \\
+            \xrightarrow{\text{Shift}} \\
+            \Big\langle \big[ (3, e), (2, i) \big],\ 
+            \big[ (4, g) \big],\ 
+            \big\{ \langle (1, m), (0, d) \rangle,
+                   \langle (2, i), (1, m) \rangle
+            \big \} \Big \rangle \\
+            \xrightarrow{\text{Left-Arc}} \\
+            \Big\langle \big[ (2, i) \big],\ 
+            \big[ (4, g) \big],\ 
+            \big\{ \langle (1, m), (0, d) \rangle,
+                   \langle (2, i), (1, m) \rangle, 
+                   \langle (4, g), (3, e) \rangle
+            \big\} \Big\rangle \\
+            \xrightarrow{\text{Right-Arc}} \\
+            \Big\langle \big[ (4, g), (2, i) \big],\
+            \mathbf{nil},\ 
+            \big\{ \langle (1, m), (0, d) \rangle,
+                   \langle (2, i), (1, m) \rangle,
+                   \langle (4, g), (3, e) \rangle,
+                   \langle (2, i), (4, g) \langle
+            \big\} \Big\rangle \\
+        \end{gather*}
 
     \item
 
