@@ -384,26 +384,16 @@
 				Algorithmus bei einem Input der Länge $n$ maximal $2n$ Transitionen um zu terminieren.
 				
 			\item
-				Mit der Breiten- und Tiefensuche kann man das Problem recht gut lösen, da hier nur 
-				die Vor- und Nachteile der beiden Suchen beachtet werden und geguckt werden muss welche 
-				Suche besser geeignet ist. Beide Suchen werden terminieren, da der Input endlich ist und
-				der Parser terminieren wird, d.h. bei der Anwendung der Tiefensuche kann es nicht 
-				passieren, dass ein Pfad immer tiefer führt, ohne zu terminieren. Jedoch kann es 
-				sein, dass man eine Laufzeit von $n^2$ haben kann, da man im schlimmsten Fall alle
-				Pfade überprüfen muss. Bei der Breitensuche ist der Vorteil, dass man von jedem Zustand
-				aus alle Operationen betrachten kann. Des Weiteren kann der Aufwand der Breistensuche
-				geringer sein als bei der Tiefensuche. \\
+				Wir wissen das alle Pfade maximal $2n$ lang sind. Im schlimmsten Fall müssen wir 
+				sowohl bei der Breitensuchen als auch bei der Tiefensuche alle Pfade durchlaufen, um
+				das Ziel zu finden. Daher würde sich in disem Fall die Tiefensuche anbieten, da diese
+				weniger Speicherplatz benötigt als die Breitensuche. \\
 				Bei der $A^*$-Suche besteht das Problem darin, dass es sehr schwer ist eine passende
 				Heuristik zu finden und ohne eine passende Heuristik ist es sehr schwer den Algorithmus
 				anzuwenden. \\
 				
 			\item
-				Wir würden den Parser in Kombination mit einer Breitensuche anwenden, um auf diese Weise
-				nach jeder Transition zu prüfen welcheer Pfad möglich ist. Auf diese Weise kann man den 
-				Aufwand des Parsers möglichst gering halten. Wenn man eine Tiefensuche verwenden würde,
-				müsste man hoffen, dass man immer am Anfang einen Pfad findet der zum Ziel führt und bei 
-				der Breitensuche kann man in der Regel den Aufwand geringer halten, als bei der 
-				Tiefensuche.
+				
 				
 				
 				
