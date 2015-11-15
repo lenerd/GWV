@@ -132,8 +132,6 @@
 	        }
             
             \item
-            Es ist nicht möglich, wie in der Aufgabe gefordert, einen "`dependency tree"' zu konstruieren, der die Eigenschaften des Parsers verletzt. Eine Baumstruktur beschreibt bereits einen Datensatz, welcher ungerichtete Kanten besitzt, azyklisch und zusammenhängend ist. Wir können stattdessen, wie im Paper angegeben, einen Graphen konstruieren, der diese Eigenschaften verletzt.
-            
             Als Vergleich sei zunächst ein korrekter Graph gegeben. Dier erfüllt die folgenden Bedingungen.
             
             \begin{itemize}
@@ -362,20 +360,23 @@ semithick]
 				
 			\item
 				Ein Endzustand ist erreicht, wenn die Liste mit einem Input $I$ leer ist, also der Input 
-				vollständig eingelsen wurde. Daher gilt für einen Endzustand: \\ 
+				vollständig eingelsen wurde und die Ausgabe akzeptiert wurde.
+				Daher gilt für einen Endzustand: \\ 
 				$ende = \langle S,\emptyset,A \rangle$
 				
 			\item
-				Die Operationen des Parsers dienen als Kantenübergang zwischen den einzelnen Zuständen. \\
-	            \textbf{left-arc}   $\langle n|S,n'|I,A\rangle \rightarrow \langle S,n'|I,A \cup \{(n',n)\}\rangle$ \\
+				Die Operationen des Parsers dienen als Kantenübergang zwischen den einzelnen Zuständen.
+				Des Weiteren existieren die Kanten nur dann wenn die entsprechenden Bedinungen erfüllt 
+				sind. \\
+				
+		       \textbf{left-arc}   $\langle n|S,n'|I,A\rangle \rightarrow \langle S,n'|I,A \cup \{(n',n)\}\rangle$ \\
 	            \textbf{right-arc} $\langle n |S, n' | I, A \rangle \rightarrow \langle n'|n|S, I, A \cup \{(n, n')\}\rangle$ \\
 	            \textbf{reduce} $\langle n|S,I,A\rangle \rightarrow \langle S,I,A \rangle$ \\
 	            \textbf{shift} $\langle S,n|I,A\rangle \rightarrow \langle n|S,I,A \rangle$ \\
 				
 			\item
-				Der Suchzustand kann vor dem parsen erzeugt werden, es muss lediglich einen Input geben. 
-				Wenn es keinen Input geben sollte, ist es nach unserer Definition nicht möglich den 
-				Suchzustand zu erzeugen. 
+				Der Suchraum kann vorher erstellt werden, es macht jedoch keinen Sinn, da dies
+				mehr Aufwand erzeugen würde, als die Suche selber. \\
 				
 			\item
 				Der Vorteil des Algorthmuses ist, dass der Algorithmus in linearer Zeit terminiert und der
