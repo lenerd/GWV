@@ -100,9 +100,7 @@
 	        }
 
             \item
-            {
-            \textbf{dependency graph}
-            
+            {            
             \textbf{directed graph} $D = (N_W, A)$
             nodes $N_W$ set of tokens in $W$
             
@@ -347,8 +345,68 @@ semithick]
                    \langle (2, i), (4, g) \langle
             \big\} \Big\rangle \\
         \end{gather*}
-
+\newpage
     \item
+		\begin{enumerate}
+			\item
+				Für die Suchzustände gilt: $s = \langle S,I,A \rangle$ \\
+				Wobei $S$ für den Stack steht, $I$ den Input umschreibt und $A$ eine Liste der Relationen 
+				ist.
+				
+			\item
+				Der Startzustand wird durch einen leeren Stack $S$, einer mit dem Input gefühlten Liste
+				$I$ und einer leeren Liste $A$, da noch keine Relationen gefunden wurden. Der Starzustand 
+				$start$ ist demnach, wie folgt deffiniert: \\ 
+				$start = \langle \emptyset,I,\emptyset \rangle$.
+				
+			\item
+				Ein Endzustand ist erreicht, wenn die Liste mit einem Input $I$ leer ist, also der Input 
+				vollständig eingelsen wurde. Daher gilt für einen Endzustand: \\ 
+				$ende = \langle S,\emptyset,A \rangle$
+				
+			\item
+				Die Operationen des Parsers dienen als Kantenübergang zwischen den einzelnen Zuständen. \\
+	            \textbf{left-arc}   $\langle n|S,n'|I,A\rangle \rightarrow \langle S,n'|I,A \cup \{(n',n)\}\rangle$ \\
+	            \textbf{right-arc} $\langle n |S, n' | I, A \rangle \rightarrow \langle n'|n|S, I, A \cup \{(n, n')\}\rangle$ \\
+	            \textbf{reduce} $\langle n|S,I,A\rangle \rightarrow \langle S,I,A \rangle$ \\
+	            \textbf{shift} $\langle S,n|I,A\rangle \rightarrow \langle n|S,I,A \rangle$ \\
+				
+			\item
+				Der Suchzustand kann vor dem parsen erzeugt werden, es muss lediglich einen Input geben. 
+				Wenn es keinen Input geben sollte, ist es nach unserer Definition nicht möglich den 
+				Suchzustand zu erzeugen. 
+				
+			\item
+				Der Vorteil des Algorthmuses ist, dass der Algorithmus in linearer Zeit terminiert und der
+				Aufwand, dadurch geringer ist, als alle Möglichkeiten auszuprobieren. So braucht der 
+				Algorithmus bei einem Input der Länge $n$ maximal $2n$ Transitionen um zu terminieren.
+				
+			\item
+				Mit der Breiten- und Tiefensuche kann man das Problem recht gut lösen, da hier nur 
+				die Vor- und Nachteile der beiden Suchen beachtet werden und geguckt werden muss welche 
+				Suche besser geeignet ist. Beide Suchen werden terminieren, da der Input endlich ist und
+				der Parser terminieren wird, d.h. bei der Anwendung der Tiefensuche kann es nicht 
+				passieren, dass ein Pfad immer tiefer führt, ohne zu terminieren. Jedoch kann es 
+				sein, dass man eine Laufzeit von $n^2$ haben kann, da man im schlimmsten Fall alle
+				Pfade überprüfen muss. Bei der Breitensuche ist der Vorteil, dass man von jedem Zustand
+				aus alle Operationen betrachten kann. Des Weiteren kann der Aufwand der Breistensuche
+				geringer sein als bei der Tiefensuche. \\
+				Bei der $A^*$-Suche besteht das Problem darin, dass es sehr schwer ist eine passende
+				Heuristik zu finden und ohne eine passende Heuristik ist es sehr schwer den Algorithmus
+				anzuwenden. \\
+				
+			\item
+				Wir würden den Parser in Kombination mit einer Breitensuche anwenden, um auf diese Weise
+				nach jeder Transition zu prüfen welcheer Pfad möglich ist. Auf diese Weise kann man den 
+				Aufwand des Parsers möglichst gering halten. Wenn man eine Tiefensuche verwenden würde,
+				müsste man hoffen, dass man immer am Anfang einen Pfad findet der zum Ziel führt und bei 
+				der Breitensuche kann man in der Regel den Aufwand geringer halten, als bei der 
+				Tiefensuche.
+				
+				
+				
+				
+		\end{enumerate}
 
 \end{enumerate}
 
