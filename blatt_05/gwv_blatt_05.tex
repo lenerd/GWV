@@ -141,55 +141,56 @@
             	\item Projective
             \end{itemize}
             
-\begin{figure}[H]
+\begin{figure}
 	\centering
 
-\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
-semithick]
-\tikzstyle{every state}=[draw=black,text=black]
+    \begin{tikzpicture}[%
+        ->,
+        >=stealth',
+        scale=2,
+        semithick,
+    ]
 
-\node[initial,state] (A)                    {$A$};
-\node[state]         (B) [below left of=A] 	{$B$};
-\node[state]         (C) [below right of=A] {$C$};
-\node[state]         (D) [below left of=B] 	{$D$};
-\node[state]         (E) [below right of=B] {$E$};
+        \node[circle,draw] (A) at (0,1) {$A$};
+        \node[circle,draw] (B) at (1,2) {$B$};
+        \node[circle,draw] (C) at (2,1) {$C$};
+        \node[circle,draw] (D) at (3,3) {$D$};
+        \node[circle,draw] (E) at (4,2) {$E$};
 
-\path 
-	(A) edge (B)
-	(A) edge (C)
-	(B) edge (D)
-	(B) edge (E)
-	(A) edge (C);
+        \draw (B) -> (A);
+        \draw (D) -> (B);
+        \draw (B) -> (C);
+        \draw (D) -> (E);
 
-
-\end{tikzpicture}
+    \end{tikzpicture}
 	
-	\caption{Korrekter Pfad}
+	\caption{wohlgeformter Graph}
 	\label{fig:P01}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}
 	\centering
 	
-	\begin{tikzpicture}[[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
-	semithick]
-	\tikzstyle{every state}=[draw=black,text=black]
-	
-	\node[initial,state] (A)                    {$A$};
-	\node[state]         (B) [below left of=A] 	{$B$};
-	\node[state]         (C) [below right of=A] {$C$};
-	\node[state]         (D) [below left of=B] 	{$D$};
-	\node[state]         (E) [below right of=B] {$E$};
-	
-	\path 
-	(A) edge (B)
-	(A) edge (C)
-	(B) edge (D)
-	(B) edge (E)
-	(C) edge (E);
-	
-	
-	\end{tikzpicture}
+    \begin{tikzpicture}[%
+        ->,
+        >=stealth',
+        scale=2,
+        semithick,
+    ]
+
+        \node[circle,draw] (A) at (0,1) {$A$};
+        \node[circle,draw] (B) at (1,2) {$B$};
+        \node[circle,draw] (C) at (2,1) {$C$};
+        \node[circle,draw] (D) at (3,3) {$D$};
+        \node[circle,draw] (E) at (4,2) {$E$};
+
+        \draw (B) -> (A);
+        \draw (D) -> (B);
+        \draw (B) -> (C);
+        \draw (D) -> (E);
+        \draw (E) -> (C);
+
+    \end{tikzpicture}
 	
 	\caption{"`Single Head"'-Bedingung verletzt}
 	\label{fig:P02}
@@ -197,27 +198,26 @@ semithick]
 
 \begin{figure}
 	\centering
-	
-	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
-	semithick]
-	\tikzstyle{every state}=[draw=black,text=black]
-	
-	\node[initial,state] (A)                    {$A$};
-	\node[state]         (B) [below left of=A] 	{$B$};
-	\node[state]         (C) [below right of=A] {$C$};
-	\node[state]         (D) [below left of=B] 	{$D$};
-	\node[state]         (E) [below right of=B] {$E$};
-	
-	\path 
-	(A) edge (B)
-	(A) edge (C)
-	(B) edge (D)
-	(D) edge (E)
-	(E) edge (B)
-	(A) edge (C);
-	
-	
-	\end{tikzpicture}
+	\begin{tikzpicture}[%
+        ->,
+        >=stealth',
+        scale=2,
+        semithick,
+    ]
+
+        \node[circle,draw] (A) at (0,1) {$A$};
+        \node[circle,draw] (B) at (1,2) {$B$};
+        \node[circle,draw] (C) at (2,1) {$C$};
+        \node[circle,draw] (D) at (3,3) {$D$};
+        \node[circle,draw] (E) at (4,2) {$E$};
+
+        \draw (B) -> (A);
+        \draw (D) -> (B);
+        \draw (B) -> (C);
+        \draw (D) -> (E);
+        \draw (A) -> (C);
+
+    \end{tikzpicture}
 	
 	\caption{"`Acyclic"'-Bedingung verletzt}
 	\label{fig:P03}
@@ -226,24 +226,24 @@ semithick]
 \begin{figure}
 	\centering
 	
-	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
-	semithick]
-	\tikzstyle{every state}=[draw=black,text=black]
-	
-	\node[initial,state] (A)                    {$A$};
-	\node[state]         (B) [below left of=A] 	{$B$};
-	\node[state]         (C) [below right of=A] {$C$};
-	\node[state]         (D) [below left of=B] 	{$D$};
-	\node[state]         (E) [below right of=B] {$E$};
-	
-	\path 
-	(A) edge (B)
-	(A) edge (C)
-	(B) edge (D)
-	(A) edge (C);
-	
-	
-	\end{tikzpicture}
+	\begin{tikzpicture}[%
+        ->,
+        >=stealth',
+        scale=2,
+        semithick,
+    ]
+
+        \node[circle,draw] (A) at (0,1) {$A$};
+        \node[circle,draw] (B) at (1,2) {$B$};
+        \node[circle,draw] (C) at (2,1) {$C$};
+        \node[circle,draw] (D) at (3,3) {$D$};
+        \node[circle,draw] (E) at (4,2) {$E$};
+
+        \draw (B) -> (A);
+        \draw (D) -> (B);
+        \draw (D) -> (E);
+
+    \end{tikzpicture}
 	
 	\caption{"`Connected"'-Bedingung verletzt}
 	\label{fig:P04}
@@ -253,27 +253,27 @@ semithick]
 \begin{figure}
 	\centering
 	
-	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
-	semithick]
-	\tikzstyle{every state}=[draw=black,text=black]
+	\begin{tikzpicture}[%
+        ->,
+        >=stealth',
+        scale=2,
+        semithick,
+    ]
+
+        \node[circle,draw] (A) at (0,1) {$A$};
+        \node[circle,draw] (B) at (1,2) {$B$};
+        \node[circle,draw] (C) at (2,2) {$C$};
+        \node[circle,draw] (D) at (3,3) {$D$};
+        \node[circle,draw] (E) at (4,2) {$E$};
+
+        \draw (C) -> (A);
+        \draw (D) -> (B);
+        \draw (D) -> (C);
+        \draw (D) -> (E);
+
+    \end{tikzpicture}
 	
-	\node[initial,state] (A)                    {$A$};
-	\node[state]         (B) [below left of=A] 	{$B$};
-	\node[state]         (C) [below right of=A] {$C$};
-	\node[state]         (D) [below left of=B] 	{$D$};
-	\node[state]         (E) [below right of=B] {$E$};
-	
-	\path 
-	(A) edge (B)
-	(A) edge (C)
-	(B) edge (D)
-	(B) edge (E)
-	(A) edge (C);
-	
-	
-	\end{tikzpicture}
-	
-	\caption{"`Projective-Bedingung"' verletzt}
+	\caption{"`Projective"'-Bedingung verletzt}
 	\label{fig:P05}
 \end{figure}
 
@@ -341,7 +341,7 @@ semithick]
             \big\{ \langle (1, m), (0, d) \rangle,
                    \langle (2, i), (1, m) \rangle,
                    \langle (4, g), (3, e) \rangle,
-                   \langle (2, i), (4, g) \langle
+                   \langle (2, i), (4, g) \rangle
             \big\} \Big\rangle \\
         \end{gather*}
 \newpage
