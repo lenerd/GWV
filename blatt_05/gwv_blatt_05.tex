@@ -353,35 +353,34 @@
 				ist.
 				
 			\item
-				Der Startzustand wird durch einen leeren Stack $S$, einer mit dem Input gefühlten Liste
-				$I$ und einer leeren Liste $A$, da noch keine Relationen gefunden wurden. Der Starzustand 
-				$start$ ist demnach, wie folgt deffiniert: \\ 
-				$start = \langle \emptyset,I,\emptyset \rangle$.
+				Der Startzustand wird durch einen leeren Stack $S$, einer mit dem Input gefüllten Liste
+				$I$ und einer leeren Menge $A$, da noch keine Relationen gefunden wurden, definiert:
+                $start = \langle \mathbf{nil} ,I,\emptyset \rangle$.
 				
 			\item
 				Ein Endzustand ist erreicht, wenn die Liste mit einem Input $I$ leer ist, also der Input 
 				vollständig eingelsen wurde und die Ausgabe akzeptiert wurde.
 				Daher gilt für einen Endzustand: \\ 
-				$ende = \langle S,\emptyset,A \rangle$
+                $\langle S,\mathbf{nil},A \rangle$ für eine wohlgeformte Relation $A$ und beliebigem Inhalt auf dem Stack.
 				
 			\item
 				Die Operationen des Parsers dienen als Kantenübergang zwischen den einzelnen Zuständen.
-				Des Weiteren existieren die Kanten nur dann wenn die entsprechenden Bedinungen erfüllt 
+				Des Weiteren existieren die Kanten nur dann, wenn die entsprechenden Bedingungen erfüllt 
 				sind. \\
 				
-		       \textbf{left-arc}   $\langle n|S,n'|I,A\rangle \rightarrow \langle S,n'|I,A \cup \{(n',n)\}\rangle$ \\
-	            \textbf{right-arc} $\langle n |S, n' | I, A \rangle \rightarrow \langle n'|n|S, I, A \cup \{(n, n')\}\rangle$ \\
-	            \textbf{reduce} $\langle n|S,I,A\rangle \rightarrow \langle S,I,A \rangle$ \\
+                \textbf{left-arc}   $\langle n|S,n'|I,A\rangle \rightarrow \langle S,n'|I,A \cup \{(n',n)\}\rangle$, wenn $\mathrm{LEX}(n) \leftarrow \mathrm{LEX}(n') \in R$ und $\lnot \exists n'' : (n'', n') \in A$ \\
+        \textbf{right-arc} $\langle n |S, n' | I, A \rangle \rightarrow \langle n'|n|S, I, A \cup \{(n, n')\}\rangle$, wenn $\mathrm{LEX}(n) \rightarrow \mathrm{LEX}(n') \in R$ und $\lnot \exists n'' : (n'', n') \in A$ \\
+            \textbf{reduce} $\langle n|S,I,A\rangle \rightarrow \langle S,I,A \rangle$, wenn $\exists n' : (n', n) \in A$ \\
 	            \textbf{shift} $\langle S,n|I,A\rangle \rightarrow \langle n|S,I,A \rangle$ \\
 				
 			\item
 				Der Suchraum kann vorher erstellt werden, es macht jedoch keinen Sinn, da dies
-				mehr Aufwand erzeugen würde, als die Suche selber. \\
+				mehr Aufwand erzeugen würde, als die Suche selbst. \\
 				
 			\item
 				Der Vorteil des Algorithmus ist, dass dieser in linearer Zeit terminiert und der
 				Aufwand, dadurch geringer ist, als alle Möglichkeiten auszuprobieren. So braucht der 
-				Algorithmus bei einem Input der Länge $n$ maximal $2n$ Transitionen um zu terminieren.
+				Algorithmus bei einem Input der Länge $n$ maximal $2n$ Transitionen, um zu terminieren.
 				
 			\item
 				Wir wissen das alle Pfade maximal $2n$ lang sind. Im schlimmsten Fall müssen wir 
@@ -389,15 +388,13 @@
 				das Ziel zu finden. Daher würde sich in disem Fall die Tiefensuche anbieten, da diese
 				weniger Speicherplatz benötigt als die Breitensuche. \\
 				Bei der $A^*$-Suche besteht das Problem darin, dass es sehr schwer ist eine passende
-				Heuristik zu finden und ohne eine passende Heuristik ist es sehr schwer den Algorithmus
-				anzuwenden. \\
+				Heuristik zu finden und ohne eine passende Heuristik ist der Algorithmus nicht anwendbar.
 				
 			\item
 				Wir verwenden einfach eine Tiefensuche im oben definierten Suchraum, d.h. wir gehen nach
 				und nach jeden Pfad im Suchraum durch und prüfen, ob wir einen Endzustand finden. Mit
 				der Tiefensuche sparen wir mehr Speicher im Vergleich zur Breitensuche. Die Operationen
-				des Parsers verwenden, da sie als Transitionen zwischen den Zuständen des Suchraumes 
-				definiert sind. \\
+				des Parsers verwenden, als Transitionen zwischen den Zuständen des Suchraumes. \\
 				Da wir endliche Eingaben haben, kann es nicht passieren, dass wir in einem unendlichen
 				Pfad landen. \\ 
 				
