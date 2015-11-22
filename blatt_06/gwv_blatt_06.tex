@@ -65,36 +65,37 @@
 
 \section*{Exercise \blattnr.1: Constraints}
 \begin{enumerate}
-	\item
-	Mit Hilfe der Regeln der schriftlichen Addition, kann man das Problem formalisieren. \\
-	\begin{center}
-		\begin{tabular}{cr}
-				&A4 A3 A2 A1 \\
-				&B4 B3 B2 B1 \\
-				+& C4 C3 C2 C1    \\\hline
-				&D5 D4 D3 D2 D1   
-		\end{tabular}
-	\end{center}
-	Für die Domäne gilt: \\
-	\begin{center}
-	$Dom(Ai) = Dom(Bi) = Dom(Di) = \{0,...,9\}$ \\
-	$Dom(Ci) = \{0,1\}$ \\
-	\end{center}
-	Man muss die Domänen der Summanden und des Ergebnisses von der des Übertrags trennen, da der Übertrag 
-	nur zwei verschiedene Werte annehmen kann. Für das Ergebnis der Addition gilt: \\
-	\begin{center}
-	$D1 = (A1 + B1)\mod b$ \\
-	$Di = (Ai + Bi + Ci)\mod b$  für $i = 2,3,4$\\
-	$D5 = C5$ \\
-	$Ci = \lfloor(Ai + Bi + Ci) / b\rfloor$ für $i = 1,2,3,4$ \\
-	\end{center}
-	$b$ steht für die Basis des Zahlensystems, mit dem gerechnet wird, z.B. binär, dezimal oder 
-	hexadezimal. Diese Modulorechnung hat zur Folge, dass nur einstellige Werte in der Rechnung auftreten.
-	
-	
-	
+    \item
+        Mit Hilfe der Regeln der schriftlichen Addition, kann man das Problem
+        formalisieren.
+        \begin{center}
+            \begin{tabular}{crrrrr}
+                  &    & A4 & A3 & A2 & A1 \\
+                  &    & B4 & B3 & B2 & B1 \\
+                + & C5 & C4 & C3 & C2 & C1 \\ \hline
+                  & D5 & D4 & D3 & D2 & D1
+            \end{tabular}
+        \end{center}
+        Für die Domänen gilt:
+        \begin{gather*}
+            Dom(Ai) = Dom(Bi) = Dom(Di) = \{0,...,9\} \\
+            Dom(Ci) = \{0,1\}
+        \end{gather*}
+        $Ci$ steht für den Übertrag.  Man muss die Domänen der Summanden und
+        des Ergebnisses von der des Übertrags trennen, da der Übertrag nur zwei
+        verschiedene Werte annehmen kann. Für das Ergebnis der Addition gilt:
+        \begin{align*}
+            Di &= (Ai + Bi + Ci) \mod 10 \text{ für } i = 1,2,3,4 \\
+            D5 &= C5 \\
+            C1 &= 0 \\
+            C(i+1) &= \lfloor (Ai + Bi + Ci) / 10 \rfloor
+            \text{ für }  i = 1,2,3,4
+        \end{align*}
 	   
-			
+    \item
+
+    \item
+
 \end{enumerate}
 
 
