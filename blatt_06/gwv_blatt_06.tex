@@ -22,6 +22,7 @@
 \pgfplotsset{compat=1.12}
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
+\usepackage{pdflscape}
 
 \usepackage{tikz}
 \usetikzlibrary{arrows,automata}
@@ -85,12 +86,99 @@
         des Ergebnisses von der des Übertrags trennen, da der Übertrag nur zwei
         verschiedene Werte annehmen kann. Für das Ergebnis der Addition gilt:
         \begin{align*}
-            Di &= (Ai + Bi + Ci) \mod 10 \text{ für } i = 1,2,3,4 \\
-            D5 &= C5 \\
-            C1 &= 0 \\
+            D1 &= (A1 + B1) \mod 10 \\
+            Di &= (Ai + Bi + Ci) \mod 10 \text{ für } i = 2,3,4 \\
+            D5 &= \lfloor (A4 + B4 + C4) / 10 \rfloor \\
+            C2 &= \lfloor (A1 + B1) / 10 \rfloor \\
             C(i+1) &= \lfloor (Ai + Bi + Ci) / 10 \rfloor
-            \text{ für }  i = 1,2,3,4
+            \text{ für }  i = 2,3
         \end{align*}
+
+        \begin{landscape}
+            \vspace*{\fill}
+            \begin{figure}[h]
+                \centering
+                \begin{tikzpicture}[
+                        auto,
+                        scale=2.5,
+                ]
+                    \tikzstyle{edge}=[->,>=stealth']
+                    \tikzstyle{var}=[circle, thick, draw, minimum size=6mm]
+                    \tikzstyle{constraint}=[rectangle, thick, draw, align=center]
+
+                    \node [var] (d1) at (8,0) {D1};
+                    \node [var] (d2) at (6,0) {D2};
+                    \node [var] (d3) at (4,0) {D3};
+                    \node [var] (d4) at (2,0) {D4};
+                    \node [var] (d5) at (0,0) {D5};
+                    \node [var] (c2) at (6,1) {C2};
+                    \node [var] (c3) at (4,1) {C3};
+                    \node [var] (c4) at (2,1) {C4};
+                    \node [var] (b1) at (8,2) {B1};
+                    \node [var] (b2) at (6,2) {B2};
+                    \node [var] (b3) at (4,2) {B3};
+                    \node [var] (b4) at (2,2) {B4};
+                    \node [var] (a1) at (8,3) {A1};
+                    \node [var] (a2) at (6,3) {A2};
+                    \node [var] (a3) at (4,3) {A3};
+                    \node [var] (a4) at (2,3) {A4};
+
+                    \node [constraint] (m1) at (7,0)
+                        {$(A1 + B1)$ \\ $\mod 10 = D1$};
+                    \node [constraint] (q1) at (7,3)
+                        {$\lfloor(A1 + B1)$ \\ $/ 10 \rfloor = C2$};
+                    \node [constraint] (m2) at (5,0)
+                        {$(A2 + B2 + C2)$ \\ $\mod 10 = D2$};
+                    \node [constraint] (q2) at (5,3)
+                        {$\lfloor(A2 + B2 + C2)$ \\ $/ 10 \rfloor = C3$};
+                    \node [constraint] (m3) at (3,0)
+                        {$(A3 + B3 + C3)$ \\ $\mod 10 = D3$};
+                    \node [constraint] (q3) at (3,3)
+                        {$\lfloor(A3 + B3 + C3)$ \\ $/ 10 \rfloor = C4$};
+                    \node [constraint] (m4) at (1,0)
+                        {$(A4 + B4 + C4)$ \\ $\mod 10 = D4$};
+                    \node [constraint] (q4) at (1,3)
+                        {$\lfloor(A4 + B4 + C4)$ \\ $/ 10 \rfloor = D5$};
+
+                    \draw (a1) -- (m1);
+                    \draw (b1) -- (m1);
+                    \draw (d1) -- (m1);
+                    \draw (a1) -- (q1);
+                    \draw (b1) -- (q1);
+                    \draw (c2) -- (q1);
+
+                    \draw (a2) -- (m2);
+                    \draw (b2) -- (m2);
+                    \draw (c2) -- (m2);
+                    \draw (d2) -- (m2);
+                    \draw (a2) -- (q2);
+                    \draw (b2) -- (q2);
+                    \draw (c2) -- (q2);
+                    \draw (c3) -- (q2);
+
+                    \draw (a3) -- (m3);
+                    \draw (b3) -- (m3);
+                    \draw (c3) -- (m3);
+                    \draw (d3) -- (m3);
+                    \draw (a3) -- (q3);
+                    \draw (b3) -- (q3);
+                    \draw (c3) -- (q3);
+                    \draw (c4) -- (q3);
+
+                    \draw (a4) -- (m4);
+                    \draw (b4) -- (m4);
+                    \draw (c4) -- (m4);
+                    \draw (d4) -- (m4);
+                    \draw (a4) -- (q4);
+                    \draw (b4) -- (q4);
+                    \draw (c4) -- (q4);
+                    \draw (d5) -- (q4);
+                \end{tikzpicture}
+                \caption{Constraint Network}
+                \label{fig:constraints}
+            \end{figure}
+            \vspace*{\fill}
+        \end{landscape}
 	   
     \item
 
