@@ -192,6 +192,67 @@
 	auf eine mögliche Lösung fixiert ist und sehr schwer einen neuen Ansatz finden kann. \\
 
     \item
+        Wir repräsentieren das Problem durch sechs Variablen A1 bis D3, die
+        jeweils die Worte in den Zeilen bzw. Spalten angeben. Die Domain einer
+        Variablen ist jeweils die Menge der angegebenen Wörter.
+        Die Constraints verlangen, dass der erste Buchstabe von A1 und D1
+        gleich sein müssen etc. (siehe Abb. \ref{fig:constraints2})
+
+        Da keine unären Constaints vorhanden sind, ist Domain Consistency
+        bereits gegeben.
+
+        Die Ausführung des Arc Consistency Algorithmus per Hand dauert mir zu
+        lange.
+        \begin{figure}[h]
+            \centering
+            \begin{tikzpicture}[
+                    auto,
+                    scale=1,
+            ]
+                \tikzstyle{edge}=[->,>=stealth']
+                \tikzstyle{var}=[circle, thick, draw, minimum size=6mm]
+                \tikzstyle{constraint}=[rectangle, thick, draw, align=center]
+
+                \node [var] (A1) at (0,7) {A1};
+                \node [var] (A2) at (0,4) {A2};
+                \node [var] (A3) at (0,1) {A3};
+                \node [var] (D1) at (10,7) {D1};
+                \node [var] (D2) at (10,4) {D2};
+                \node [var] (D3) at (10,1) {D3};
+
+                \node [constraint] (c1) at (5,8) {A1[0] = D1[0]};
+                \node [constraint] (c2) at (5,7) {A1[1] = D2[0]};
+                \node [constraint] (c3) at (5,6) {A1[2] = D3[0]};
+                \node [constraint] (c4) at (5,5) {A2[0] = D1[1]};
+                \node [constraint] (c5) at (5,4) {A2[1] = D2[1]};
+                \node [constraint] (c6) at (5,3) {A2[2] = D3[1]};
+                \node [constraint] (c7) at (5,2) {A3[0] = D1[2]};
+                \node [constraint] (c8) at (5,1) {A3[1] = D2[2]};
+                \node [constraint] (c9) at (5,0) {A3[2] = D3[2]};
+
+                \draw (A1) -- (c1.west);
+                \draw (A1) -- (c2.west);
+                \draw (A1) -- (c3.west);
+                \draw (A2) -- (c4.west);
+                \draw (A2) -- (c5.west);
+                \draw (A2) -- (c6.west);
+                \draw (A3) -- (c7.west);
+                \draw (A3) -- (c8.west);
+                \draw (A3) -- (c9.west);
+                \draw (D1) -- (c1.east);
+                \draw (D1) -- (c4.east);
+                \draw (D1) -- (c7.east);
+                \draw (D2) -- (c2.east);
+                \draw (D2) -- (c5.east);
+                \draw (D2) -- (c8.east);
+                \draw (D3) -- (c3.east);
+                \draw (D3) -- (c6.east);
+                \draw (D3) -- (c9.east);
+
+            \end{tikzpicture}
+            \caption{Constraint Network}
+            \label{fig:constraints2}
+        \end{figure}
 
 \end{enumerate}
 
