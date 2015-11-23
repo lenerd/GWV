@@ -67,11 +67,11 @@ def arc_consistency(V, dom, C):
 
 
 def main():
-    words = {'add', 'and', 'art', 'bag', 'far', 'ado', 'any', 'ash', 'ban',
-             'fat', 'age', 'ape', 'ask', 'bat', 'fit', 'ago', 'apt', 'auk',
-             'bee', 'lee', 'aid', 'arc', 'awe', 'boa', 'oaf', 'ail', 'are',
-             'awl', 'ear', 'rat', 'aim', 'ark', 'aye', 'eel', 'tar', 'air',
-             'arm', 'bad', 'eft', 'tie'}
+    words = {'add', 'ado', 'age', 'ago', 'aid', 'ail', 'aim', 'air', 'and',
+             'any', 'ape', 'apt', 'arc', 'are', 'ark', 'arm', 'art', 'ash',
+             'ask', 'auk', 'awe', 'awl', 'aye', 'bad', 'bag', 'ban', 'bat',
+             'bee', 'boa', 'ear', 'eel', 'eft', 'far', 'fat', 'fit', 'lee',
+             'oaf', 'rat', 'tar', 'tie'}
 
     def dom(X):
         return words.copy()
