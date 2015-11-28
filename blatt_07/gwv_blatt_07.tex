@@ -141,7 +141,7 @@
 		
 		\textbf{Diagnosis}
 			\begin{itemize}
-				\item No noises
+				\item No noises: $starter \vee fuel \, pump \vee engine \rightarrow starter_{ok} \wedge fuel \, pump_{ok} \wedge  fuel \, tank_{ok} \wedge ignition \, key_{ok} \wedge electronic \, fuel \, regulation_{ok} \wedge  battery_{ok} \wedge filter_{ok} $ Alle Komponenten könnten kaputt sein, da die drei potenziell defekten Teile insgesamt mit allen anderen im Auto existierenden Bauteilen in direkter bzw. indirekter Verbindung stehen. Es ist nicht möglich das Problem einzugrenzen. Anders gesagt: Einer dieser Komponenten ist also nicht "`ok"' und somit wird die gesamte Struktur im Baum zu \textit{false} ausgewertet.
 				
 				\item Only noise 1
 				
@@ -150,6 +150,15 @@
 				\item Noise 1 and 2 but not noise 3
 			\end{itemize}
 		
+		
+%				battery_{on} &\leftarrow battery_{ok}\\
+%				fuel \, tank_{on} &\leftarrow fuel \, tank_{ok}\\
+%				starter_{on} &\leftarrow starter_{ok} \wedge ignition \, key_{ok}\\
+%				ignition \, key_{on} &\leftarrow ignition \, key_{ok} \wedge electronic \, fuel \, regulation_{ok} \wedge battery_{ok} \\
+%				electronic \, fuel \, regulation_{on} &\leftarrow electronic \, fuel \, regulation_{ok} \wedge battery_{ok} \wedge ignition \, key_{ok} \\
+%				engine_{on} &\leftarrow engine_{ok} \wedge starter_{ok} \wedge filter_{ok}\\
+%				filter_{on} &\leftarrow filter_{ok} \wedge fuel pump_{ok} \wedge fuel tank_{ok} \\
+%				fuel pump_{on} &\leftarrow fuel pump_{ok} \wedge fuel \, tank_{ok} \wedge electronic \, fuel \, regulation_{ok}\\
 		
 		%Nennt man das so? 
 	\end{enumerate}
