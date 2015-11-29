@@ -66,32 +66,75 @@
 
 \section*{Exercise \blattnr.2: CSI Stellingen}
 
+Assumables $A$:
+\begin{align*}
+    gardener\_worked & \\
+    butler\_worked &
+\end{align*}
+Observations:
+\begin{align*}
+    gardener\_clean & \\
+    butler\_dirty &
+\end{align*}
+Rules:
+\begin{align*}
+    gardener\_dirty &\leftarrow gardener\_worked \\
+    butler\_dirty &\leftarrow butler\_worked
+\end{align*}
+Integrity Constraints:
+\begin{align*}
+    false &\leftarrow gardener\_dirty \land gardener\_clean \\
+    false &\leftarrow butler\_dirty \land butler\_clean
+\end{align*}
+Unsere Knowledge Base $KB$ bestehe aus den Observations, den Rules und den
+Integrity Constraints.  Nun fragen wir nach $false$.  Mit Hilfe des Top-Down
+Verfahrens können wir den folgenden Baum erstellen.  Die gestrichelten Kanten
+existieren nur, wenn $KB$ mit einer Menge $c \in \{ C \subseteq A \ |\
+g\_worked \in C\}$ vereinigen. Konflikte sind also $\{g\_worked\}$ und
+$\{g\_worked, b\_worked\}$, wobei ersterer ein minimaler Konflikt ist.  Eine
+Diagnose ist eine Menge von Annahmen, so dass aus jedem (minimalen) Konflikt
+mindestens eine Annahme in der Diagnose enthalten ist. In diesem Fall ist die
+minimale Diagnose $\{g\_worked\}$. Der Gärtner kann also nicht gearbeitet
+haben.
+\begin{figure}[h]
+    \begin{tikzpicture}[%
+            level/.style={sibling distance=80mm/#1},
+        ]
+        \node (query) {$yes \leftarrow false$}
+            child {
+                node {$yes \leftarrow g\_dirty \land g\_clean$}
+                child {
+                    node {$yes \leftarrow g\_dirty$}
+                    child {
+                        node {$yes \leftarrow g\_worked$}
+                        child [dashed] {
+                            node {$yes \leftarrow$}
+                        }
+                    }
+                }
+                child {
+                    node {$yes \leftarrow g\_worked \land g\_clean$}
+                    child {
+                        node {$yes \leftarrow g\_worked$}
+                        child [dashed] {
+                            node {$yes \leftarrow$}
+                        }
+                    }
+                }
+            }
+            child {
+                node {$yes \leftarrow b\_dirty \land b\_clean$}
+                child {
+                    node {$yes \leftarrow b\_clean$}
+                }
+            }
+        ;
+    \end{tikzpicture}
+    \caption{Suchgraph für die Top-Down Ableitung}
+\end{figure}
+
 \section*{Exercise \blattnr.3: Diagnosis}
 	\begin{enumerate}
-		\item
-		\textbf{Assumables} \\
-		\begin{align*}
-			gardener_{worked} \\
-			butler_{worked} \\
-		\end{align*}
-		
-		\textbf{Rules}
-		\begin{align*}
-			gardener_{worked} &\leftarrow gdirtyhands \\
-			butler_{worked} &\leftarrow bdirtyhands \\
-		\end{align*}
-		
-		\textbf{Integrity Constraints}
-		\begin{align*}
-			false &\leftarrow gardener_{worked} \\
-			false &\leftarrow butler_{worked} \\
-		\end{align*}
-		
-		\textbf{Oberservations}
-		\begin{align*}
-			gdirtyhands &\leftarrow false \\
-			bdirtyhands &\leftarrow true \\
-		\end{align*}
 
 		\item
 		\textbf{Rules} \\
