@@ -141,16 +141,13 @@ haben.
 		\begin{align*}
 		battery_{on} &\leftarrow battery_{ok}\\
 		fuel \, tank_{on} &\leftarrow fuel \, tank_{ok}\\
-		starter_{on} &\leftarrow starter_{ok} \wedge ignition \, key_{ok}\\
-		ignition \, key_{on} &\leftarrow ignition \, key_{ok} \wedge electronic \, fuel \, regulation_{ok} \wedge battery_{ok} \\
+		ignition \, key_{on} &\leftarrow ignition \, key_{ok}\\
+		starter_{on} &\leftarrow starter_{ok} \wedge ignition \, key_{ok} \wedge battery_{ok}\\
 		electronic \, fuel \, regulation_{on} &\leftarrow electronic \, fuel \, regulation_{ok} \wedge battery_{ok} \wedge ignition \, key_{ok} \\
 		engine_{on} &\leftarrow engine_{ok} \wedge starter_{ok} \wedge filter_{ok}\\
 		filter_{on} &\leftarrow filter_{ok} \wedge fuel pump_{ok} \wedge fuel tank_{ok} \\
 		fuel pump_{on} &\leftarrow fuel pump_{ok} \wedge fuel \, tank_{ok} \wedge electronic \, fuel \, regulation_{ok}\\
 		\end{align*}
-		
-		
-		
 		
 		
 		\textbf{Assumables} \\
@@ -184,7 +181,7 @@ haben.
 		$
 		battery : bat\\
 		fuel \, tank_ : ft \\
-		starter : st\}\\
+		starter : st \\
 		ignition \, key_{on} : ign\\
 		electronic \, fuel \, regulation_{on} : elf\\
 		engine_{on} : en\\
@@ -194,16 +191,16 @@ haben.
 		
 		
 		
-		\begin{landscape}
-			\begin{figure}[ht]
-				\centering
-				\includegraphics[width=1.5\textwidth]{baum.jpg}
-				\caption{um 30 Grad gedreht}
-				\label{fig1}
-			\end{figure}
-		
-
-		\end{landscape} 
+%		\begin{landscape}
+%			\begin{figure}[ht]
+%				\centering
+%				\includegraphics[width=1.5\textwidth]{baum.jpg}
+%				\caption{um 30 Grad gedreht}
+%				\label{fig1}
+%			\end{figure}
+%		
+%
+%		\end{landscape} 
 		
 		
 		
@@ -211,7 +208,7 @@ haben.
 			\begin{itemize}
 				\item No noises: $starter \vee fuel \, pump \vee engine \rightarrow starter_{ok} \wedge fuel \, pump_{ok} \wedge  fuel \, tank_{ok} \wedge ignition \, key_{ok} \wedge electronic \, fuel \, regulation_{ok} \wedge  battery_{ok} \wedge filter_{ok} $ Alle Komponenten könnten kaputt sein, da die drei potenziell defekten Teile insgesamt mit allen anderen im Auto existierenden Bauteilen in direkter bzw. indirekter Verbindung stehen. Es ist nicht möglich das Problem einzugrenzen. Anders gesagt: Einer dieser Komponenten ist also nicht "`ok"' und somit wird die gesamte Struktur im Baum zu \textit{false} ausgewertet.
 				
-				\item Only noise 1
+				\item Only noise 1: $starter \vee fuel \, pump \vee engine \rightarrow starter_{ok} \wedge fuel \, pump_{ok} \wedge  fuel \, tank_{ok} \wedge ignition \, key_{ok} \wedge electronic \, fuel \, regulation_{ok} \wedge  battery_{ok} \wedge filter_{ok} $ Alle Komponenten könnten kaputt sein, da die drei potenziell defekten Teile insgesamt mit allen anderen im Auto existierenden Bauteilen in direkter bzw. indirekter Verbindung stehen. Es ist nicht möglich das Problem einzugrenzen. Anders gesagt: Einer dieser Komponenten ist also nicht "`ok"' und somit wird die gesamte Struktur im Baum zu \textit{false} ausgewertet.
 				
 				\item Only noise 2
 				
