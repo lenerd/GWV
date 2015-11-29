@@ -136,12 +136,13 @@ haben.
 \section*{Exercise \blattnr.3: Diagnosis}
 
 \begin{landscape}
+    \pagestyle{empty}
     \vspace*{\fill}
 \begin{figure}[h]
     \begin{tikzpicture}[%
             level/.style={
-                sibling distance=50mm/#1,
-                level distance=8mm,
+                sibling distance=48mm/#1,
+                level distance=10mm,
             },
             scale=1.5,
             align=center,
@@ -155,10 +156,7 @@ haben.
                     child {
                         node {$st\_ok \land ik\_on \land bat\_on \land no\_noise\_1$}
                         child  {
-                            node {$st\_ok \land ik\_ok \land bat\_on \land no\_noise\_1$}
-                            child  {
-                                node {$st\_ok \land ik\_ok \land bat\_ok \land no\_noise\_1$}
-                            }
+                            node {$st\_ok \land ik\_ok \land bat\_ok \land no\_noise\_1$}
                         }
                     }
                 }
@@ -174,10 +172,7 @@ haben.
                             child {
                                 node {$fp\_ok \land ft\_ok \land efr\_ok \land bat\_on \land ik\_on \land no\_noise\_2$}
                                 child {
-                                    node {$fp\_ok \land ft\_ok \land efr\_ok \land bat\_ok \land ik\_on \land no\_noise\_2$}
-                                    child {
-                                        node {$fp\_ok \land ft\_ok \land efr\_ok \land bat\_ok \land ik\_ok \land no\_noise\_2$}
-                                    }
+                                    node {$fp\_ok \land ft\_ok \land efr\_ok \land bat\_ok \land ik\_ok \land no\_noise\_2$}
                                 }
                             }
                         }
@@ -191,13 +186,19 @@ haben.
                     child {
                         node {$eg\_ok \land st\_on \land fl\_on \land fp\_on \land no\_noise\_3$}
                         child {
-                            node {$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_on \land no\_noise\_3$}
+                            node {$eg\_ok \land st\_ok \land ik\_on \land bat\_on \land fl\_on \land fp\_on \land no\_noise\_3$}
                             child {
-                                node {$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_on \land efr\_on \land no\_noise\_3$}
+                                node {$eg\_ok \land st\_ok \land ik\_on \land bat\_on \land fl\_on \land fp\_on \land no\_noise\_3$}
                                 child {
-                                    node {$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_ok \land efr\_on \land no\_noise\_3$}
+                                    node {$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_on \land efr\_on \land no\_noise\_3$}
                                     child {
-                                        node {$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_ok \land efr\_ok \land bat\_on \land ik\_on \land no\_noise\_3$}
+                                        node {$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_ok \land efr\_on \land no\_noise\_3$}
+                                        child {
+                                            node {$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_ok \land efr\_ok \land bat\_on \land ik\_on \land no\_noise\_3$}
+                                            child {
+                                                node {$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_ok \land efr\_ok \land no\_noise\_3$}
+                                            }
+                                        }
                                     }
                                 }
                             }
