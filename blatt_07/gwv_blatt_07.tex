@@ -69,6 +69,31 @@
 \section*{Exercise \blattnr.3: Diagnosis}
 	\begin{enumerate}
 		\item
+		\textbf{Assumables} \\
+		\begin{align*}
+			gardener_{worked} \\
+			butler_{worked} \\
+		\end{align*}
+		
+		\textbf{Rules}
+		\begin{align*}
+			gardener_{worked} &\leftarrow gdirtyhands \\
+			butler_{worked} &\leftarrow bdirtyhands \\
+		\end{align*}
+		
+		\textbf{Integrity Constraints}
+		\begin{align*}
+			false &\leftarrow gardener_{worked} \\
+			false &\leftarrow butler_{worked} \\
+		\end{align*}
+		
+		\textbf{Oberservations}
+		\begin{align*}
+			gdirtyhands &\leftarrow false \\
+			bdirtyhands &\leftarrow true \\
+		\end{align*}
+
+		\item
 		\textbf{Rules} \\
 		\begin{align*}
 		battery_{on} &\leftarrow battery_{ok}\\
@@ -116,7 +141,7 @@
 		$
 		battery : bat\\
 		fuel \, tank_ : ft \\
-		starter : st}\\
+		starter : st\}\\
 		ignition \, key_{on} : ign\\
 		electronic \, fuel \, regulation_{on} : elf\\
 		engine_{on} : en\\
@@ -126,16 +151,16 @@
 		
 		
 		
-		\begin{landscape}
-			\begin{figure}[ht]
-				\centering
-				\includegraphics[width=1.5\textwidth]{baum.jpg}
-				\caption{um 30 Grad gedreht}
-				\label{fig1}
-			\end{figure}
+		%\begin{landscape}
+		%	\begin{figure}[ht]
+		%		\centering
+		%		\includegraphics[width=1.5\textwidth]{baum.jpg}
+		%		\caption{um 30 Grad gedreht}
+		%		\label{fig1}
+		%	\end{figure}
 		
 
-		\end{landscape} 
+		%\end{landscape} 
 		
 		
 		
