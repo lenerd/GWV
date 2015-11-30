@@ -135,68 +135,198 @@ haben.
 
 \section*{Exercise \blattnr.3: Diagnosis}
 
+
+Wir verwenden die folgenden Abkürzungen:
+\begin{align*}
+    bat &= battery \\
+    ik &= ignition\_key \\
+    efr &= electronic\_fuel\_regulation \\
+    st &= starter \\
+    en &= engine \\
+    fl &= filter \\
+    fp &= fuel\_pump \\
+    ft &= fuel\_tank \\
+\end{align*}
+Es wird davon ausgegangen, dass alle Komponenten funktionstüchtig sind ($ok\_\ast$). \\
+\textbf{Assumables:}
+\begin{align*}
+    ok\_battery & \\
+    ok\_ignition\_key & \\
+    ok\_electronic\_fuel\_regulation & \\
+    ok\_starter & \\
+    ok\_engine & \\
+    ok\_filter & \\
+    ok\_fuel\_pump & \\
+    ok\_fuel\_tank &
+\end{align*}
+Läuft eine Komponente bzw. erfüllt sie ihren Zweck, so gilt $on\_\ast$. \\
+\textbf{Rules:}
+\begin{align*}
+    on\_bat &\leftarrow ok\_bat \\
+    on\_ik &\leftarrow ok\_ik \\
+    on\_efr &\leftarrow ok\_efr \land on\_bat \land on\_ik \\
+    on\_st &\leftarrow ok\_st \land on\_ik \land on\_bat \\
+    on\_en &\leftarrow ok\_en \land on\_st \land on\_fl \land on\_fp \\
+    on\_fl &\leftarrow ok\_fl \\
+    on\_fp &\leftarrow ok\_fp \land on\_ft \land on\_efr \\
+    on\_ft &\leftarrow ok\_ft \\
+    noise\_1 &\leftarrow on\_st \\
+    noise\_2 &\leftarrow on\_fp \\
+    noise\_3 &\leftarrow on\_en
+\end{align*}
+Ein Geräusch kann nicht gleichzeitig zu hören sein und nicht zu hören sein. \\
+\textbf{Integrity Constraints:}
+\begin{align*}
+    false &\leftarrow noise\_1 \land no\_noise\_1 \\
+    false &\leftarrow noise\_2 \land no\_noise\_2 \\
+    false &\leftarrow noise\_3 \land no\_noise\_3
+\end{align*}
+
+Nun kann mittels des Top-Down Algorithmus ein Ableitungsbaum zu dem Query
+$false$ erstellt werden (siehe Abb. \ref{fig:2} auf Seite \pageref{fig:2}).
+Dabei wird die Knowledge Base aus den Rules, den Integrity Constraings und den
+Observations ($\{no\_noise\_1, no\_noise\_2, no\_noise\_3\}$, $\{no\_noise\_2,
+no\_noise\_3\}$, $\{no\_noise\_1, no\_noise\_3\}$ oder $\{no\_noise\_3\}$)
+verwendet.
+
+Damit der Baum noch einigermaßen übersichtlich bleibt, haben wir einige
+Vereinfachungen vorgenommen. Da die Reihenfolge von Ableitungen keinen
+wesentlichen Unterschied macht, wurden nur die deri Hauptzweige dargestellt.
+Weiter wurden Schritte zusammengefasse, wenn nacheinander mehrere $on\_\ast$
+durch die entsprechenden $ok\_\ast$ ersetzt wurden.
+
+Wenn das $i$-te Geräusch nicht gehört wurde, so kann die letzte (gestrichelte)
+Ableitung im $i$-ten Ast des Baumes durchgeführt werden.
+
+\begin{enumerate}
+    \item Es wurde kein Geräusch gehört.
+        \begin{itemize}
+            \item Die Konflikte sind
+                $\{ok\_st, ok\_ik, ok\_bat\}$,
+                $\{ok\_fp, ok\_ft, ok\_efr, ok\_bat, ok\_ik\}$ und
+                $\{ok\_en, ok\_st, ok\_ik, ok\_bat, ok\_fl,ok\_fp, ok\_ft,
+                ok\_efr\}$.
+            \item Minimal sind
+                $\{ok\_st, ok\_ik, ok\_bat\}$ und
+                $\{ok\_fp, ok\_ft, ok\_efr, ok\_bat, ok\_ik\}$.
+            \item Daraus ergeben sich die minimalen Diagnosen
+                $\{ok\_ik\}$, $\{ok\_bat\}$, $\{ok\_st, ok\_fp\}$, $\{ok\_st,
+                ok\_ft\}$ und $\{ok\_st, ok\_efr\}$.
+        \end{itemize}
+
+    \item Es wurde nur Geräusch 1 gehört.
+        \begin{itemize}
+            \item Die Konflikte sind
+                $\{ok\_fp, ok\_ft, ok\_efr, ok\_bat, ok\_ik\}$ und \\
+                $\{ok\_en, ok\_st, ok\_ik, ok\_bat, ok\_fl,ok\_fp, ok\_ft,
+                ok\_efr\}$.
+            \item Minimal ist
+                $\{ok\_fp, ok\_ft, ok\_efr, ok\_bat, ok\_ik\}$.
+            \item Daraus ergeben sich die minimalen Diagnosen
+                $\{ok\_fp\}$, $\{ok\_ft\}$, $\{ok\_efr\}$, $\{ok\_ik\}$ und
+                $\{ok\_bat\}$.
+        \end{itemize}
+
+    \item Es wurde nur Geräusch 2 gehört.
+        \begin{itemize}
+            \item Die Konflikte sind
+                $\{ok\_st, ok\_ik, ok\_bat\}$ und \\
+                $\{ok\_en, ok\_st, ok\_ik, ok\_bat, ok\_fl,ok\_fp, ok\_ft,
+                ok\_efr\}$.
+            \item Minimal ist
+                $\{ok\_st, ok\_ik, ok\_bat\}$.
+            \item Daraus ergeben sich die minimalen Diagnosen
+                $\{ok\_st\}$, $\{ok\_ik\}$ und $\{ok\_bat\}$.
+        \end{itemize}
+
+    \item Es wurden nur Geräusche 1 und 2 gehört.
+        \begin{itemize}
+            \item Der Konflikt ist
+                $\{ok\_en, ok\_st, ok\_ik, ok\_bat, ok\_fl,ok\_fp, ok\_ft,
+                ok\_efr\}$.
+            \item Minimal ist
+                $\{ok\_en, ok\_st, ok\_ik, ok\_bat, ok\_fl,ok\_fp, ok\_ft,
+                ok\_efr\}$.
+            \item Daraus ergeben sich die minimalen Diagnosen
+                $\{ok\_en\}$, $\{ok\_st\}$, $\{ok\_ik\}$, $\{ok\_bat\}$,
+                $\{ok\_fl,ok\_fp\}$, $\{ok\_ft\}$ und $\{ok\_efr\}$.
+        \end{itemize}
+
+\end{enumerate}
+
+
 \begin{landscape}
     \pagestyle{empty}
-    \vspace*{\fill}
-\begin{figure}[h]
-    \begin{tikzpicture}[%
-            level/.style={
-                sibling distance=48mm/#1,
-                level distance=10mm,
-            },
-            scale=1.5,
-            align=center,
-            text width=70mm,
-        ]
-        \node (query) {$false$}
-            child {
-                node {$noise\_1 \land no\_noise\_1$}
+    %\vspace*{\fill}
+    \begin{figure}[h]
+        \begin{tikzpicture}[%
+                level/.style={
+                    sibling distance=48mm/#1,
+                    level distance=10mm,
+                },
+                scale=1.5,
+                align=center,
+                text width=70mm,
+            ]
+            \node (query) {$false$}
                 child {
-                    node {$st\_on \land no\_noise\_1$}
+                    node {$noise\_1 \land no\_noise\_1$}
                     child {
-                        node {$st\_ok \land ik\_on \land bat\_on \land no\_noise\_1$}
-                        child  {
-                            node {$st\_ok \land ik\_ok \land bat\_ok \land no\_noise\_1$}
-                        }
-                    }
-                }
-            }
-            child {
-                node {$noise\_2 \land no\_noise\_2$}
-                child {
-                    node {$fp\_on \land no\_noise\_2$}
-                    child {
-                        node {$fp\_ok \land ft\_on \land efr\_on \land no\_noise\_2$}
+                        node {$on\_st \land no\_noise\_1$}
                         child {
-                            node {$fp\_ok \land ft\_ok \land efr\_on \land no\_noise\_2$}
-                            child {
-                                node {$fp\_ok \land ft\_ok \land efr\_ok \land bat\_on \land ik\_on \land no\_noise\_2$}
-                                child {
-                                    node {$fp\_ok \land ft\_ok \land efr\_ok \land bat\_ok \land ik\_ok \land no\_noise\_2$}
+                            node {$ok\_st \land on\_ik \land on\_bat \land no\_noise\_1$}
+                            child  {
+                                node {$ok\_st \land ok\_ik \land ok\_bat \land no\_noise\_1$}
+                                child [dashed]  {
+                                    node {$ok\_st \land ok\_ik \land ok\_bat$}
                                 }
                             }
                         }
                     }
                 }
-            }
-            child {
-                node {$noise\_3 \land no\_noise\_3$}
                 child {
-                    node {$eg\_on \land no\_noise\_3$}
+                    node {$noise\_2 \land no\_noise\_2$}
                     child {
-                        node {$eg\_ok \land st\_on \land fl\_on \land fp\_on \land no\_noise\_3$}
+                        node {$on\_fp \land no\_noise\_2$}
                         child {
-                            node {$eg\_ok \land st\_ok \land ik\_on \land bat\_on \land fl\_on \land fp\_on \land no\_noise\_3$}
+                            node {$ok\_fp \land on\_ft \land on\_efr \land no\_noise\_2$}
                             child {
-                                node {$eg\_ok \land st\_ok \land ik\_on \land bat\_on \land fl\_on \land fp\_on \land no\_noise\_3$}
+                                node {$ok\_fp \land ok\_ft \land on\_efr \land no\_noise\_2$}
                                 child {
-                                    node {$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_on \land efr\_on \land no\_noise\_3$}
+                                    node {$ok\_fp \land ok\_ft \land ok\_efr \land on\_bat \land on\_ik \land no\_noise\_2$}
                                     child {
-                                        node {$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_ok \land efr\_on \land no\_noise\_3$}
+                                        node {$ok\_fp \land ok\_ft \land ok\_efr \land ok\_bat \land ok\_ik \land no\_noise\_2$}
+                                        child [dashed] {
+                                            node {$ok\_fp \land ok\_ft \land ok\_efr \land ok\_bat \land ok\_ik$}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                child {
+                    node {$noise\_3 \land no\_noise\_3$}
+                    child {
+                        node {$on\_en \land no\_noise\_3$}
+                        child {
+                            node {$ok\_en \land on\_st \land on\_fl \land on\_fp \land no\_noise\_3$}
+                            child {
+                                node {$ok\_en \land ok\_st \land on\_ik \land on\_bat \land on\_fl \land on\_fp \land no\_noise\_3$}
+                                child {
+                                    node {$ok\_en \land ok\_st \land on\_ik \land on\_bat \land on\_fl \land on\_fp \land no\_noise\_3$}
+                                    child {
+                                        node {$ok\_en \land ok\_st \land ok\_ik \land ok\_bat \land ok\_fl \land ok\_fp \land on\_ft \land on\_efr \land no\_noise\_3$}
                                         child {
-                                            node {$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_ok \land efr\_ok \land bat\_on \land ik\_on \land no\_noise\_3$}
+                                            node {$ok\_en \land ok\_st \land ok\_ik \land ok\_bat \land ok\_fl \land ok\_fp \land ok\_ft \land on\_efr \land no\_noise\_3$}
                                             child {
-                                                node {$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_ok \land efr\_ok \land no\_noise\_3$}
+                                                node {$ok\_en \land ok\_st \land ok\_ik \land ok\_bat \land ok\_fl \land ok\_fp \land ok\_ft \land ok\_efr \land on\_bat \land on\_ik \land no\_noise\_3$}
+                                                child {
+                                                    node {$ok\_en \land ok\_st \land ok\_ik \land ok\_bat \land ok\_fl \land ok\_fp \land ok\_ft \land ok\_efr \land no\_noise\_3$}
+                                                    child [dashed] {
+                                                        node {$ok\_en \land ok\_st \land ok\_ik \land ok\_bat \land ok\_fl \land ok\_fp \land ok\_ft \land ok\_efr$}
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -205,92 +335,13 @@ haben.
                         }
                     }
                 }
-            }
-        ;
-    \end{tikzpicture}
-    \caption{Suchgraph für die Top-Down Ableitung}
-\end{figure}
-    \vspace*{\fill}
+            ;
+        \end{tikzpicture}
+        \caption{Suchgraph für die Top-Down Ableitung}
+        \label{fig:2}
+    \end{figure}
+    %\vspace*{\fill}
 \end{landscape}
-
-	\begin{enumerate}
-
-		\item
-		\textbf{Rules} \\
-		\begin{align*}
-		battery_{on} &\leftarrow battery_{ok}\\
-		fuel \, tank_{on} &\leftarrow fuel \, tank_{ok}\\
-		ignition \, key_{on} &\leftarrow ignition \, key_{ok}\\
-		starter_{on} &\leftarrow starter_{ok} \wedge ignition \, key_{ok} \wedge battery_{ok}\\
-		electronic \, fuel \, regulation_{on} &\leftarrow electronic \, fuel \, regulation_{ok} \wedge battery_{ok} \wedge ignition \, key_{ok} \\
-		engine_{on} &\leftarrow engine_{ok} \wedge starter_{ok} \wedge filter_{ok}\\
-		filter_{on} &\leftarrow filter_{ok} \wedge fuel pump_{ok} \wedge fuel tank_{ok} \\
-		fuel pump_{on} &\leftarrow fuel pump_{ok} \wedge fuel \, tank_{ok} \wedge electronic \, fuel \, regulation_{ok}\\
-		\end{align*}
-		
-		
-		\textbf{Assumables} \\
-		$
-		battery_{ok}\\
-		fuel \, tank_{ok} \\
-		starter_{ok}\\
-		ignition \, key_{ok}\\
-		electronic \, fuel \, regulation_{ok}\\
-		engine_{ok}\\
-		filter_{ok}\\
-		fuel pump_{ok}\\
-		$
-		
-		\newpage	    
-		
-		\textbf{Integrity Constraints} \\
-		$
-		battery_{on} : battery_{off}\\
-		fuel \, tank_{on} : fuel \, tank_{off} \\
-		starter_{on} : starter_{off}\\
-		ignition \, key_{on} : ignition \, key_{off}\\
-		electronic \, fuel \, regulation_{on} : electronic \, fuel \, regulation_{off} \\
-		engine_{on} : engine_{off}\\
-		filter_{on} : filter_{off}\\
-		fuel pump_{on} : fuel pump_{off}\\
-		$	    
-		
-		Im Folgenden seien die Ableitungen der Regeln als Baumdiagramm dargestellt. Von diesen lässt sich dann relativ leicht eine (minimale) Diagnose erstellen. Im Bild wurden für die einzelnen Komponenten Abkürzungen verwendet:
-		
-		$
-		battery : bat\\
-		fuel \, tank_ : ft \\
-		starter : st \\
-		ignition \, key_{on} : ik\\
-		electronic \, fuel \, regulation_{on} : efr\\
-		engine_{on} : eg\\
-		filter_{on} : fl\\
-		fuel pump_{on} : fp\\
-		$
-		
-		Weiterhin leitern wir an einigen Stellen zwei "`on's"' zu jeweils "`okay"', damit der Baum auf eine DINA4-Seite passt:
-				
-		
-		\textbf{Diagnosis}
-			\begin{itemize}
-				\item No noises: Eine der folgenden Komponenten ist nicht in Ordnung: \\
-				$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_ok \land efr\_ok \land no\_noise\_3$ \\
-				
-				
-				\item Only noise 1:Eine der folgenden Komponenten ist nicht in Ordnung: \\
-				$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_ok \land efr\_ok \land no\_noise\_3$ \\
-				
-				
-				\item Only noise 2 Eine der folgenden Komponenten ist nicht in Ordnung: \\
-				$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_ok \land efr\_ok \land no\_noise\_3$ \\
-				
-				\item Noise 1 and 2 but not noise 3: Eine der folgenden Komponenten ist nicht in Ordnung: \\
-				$eg\_ok \land st\_ok \land ik\_ok \land bat\_ok \land fl\_ok \land fp\_ok \land ft\_ok \land efr\_ok \land no\_noise\_3$ \\
-				 
-			\end{itemize}
-		
-	 
-	\end{enumerate}
 
 
 \end{document}
