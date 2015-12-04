@@ -40,6 +40,7 @@
 
 \newtheorem*{behaupt}{Behauptung}
 \newcommand{\gdw}{\Leftrightarrow}
+\newcommand{\prob}{\mathbb{P}}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -70,5 +71,92 @@
 
 \section*{Exercise \blattnr.4: Bayesian Probabilities}
 
+Wir verwenden die folgenden Ereignisse:
+\begin{align*}
+    sm &\quad \text{Die Person ist ein Schmuggler.} \\
+    bark &\quad \text{Der Hund bellt.} \\
+    sweat &\quad \text{Die Person schwitzt.} \\
+    fever &\quad \text{Die Person hat Fieber.}
+\end{align*}
+Das Gegenereignis zu einem Ereignis $A$ wird mit $A^C$ bezeichnet.
+
+Aus dem Text ergibt sich die Wahrscheinlichkeiten:
+\begin{align*}
+    \prob(sm) &= \num{0,01} \\
+    \prob(bark\ |\ sm) &= \num{0,8} \\
+    \prob(bark\ |\ sm^C) &= \num{0,05} \\
+    \prob(sweat\ |\ sm^C \cap fever^C) &= \num{0} \\
+    \prob(sweat\ |\ sm \cap fever^C) &= \num{0.4} \\
+    \prob(sweat\ |\ sm \cap fever) &= \num{0.8} \\
+    \prob(sweat\ |\ sm^C \cap fever) &= \num{0.6} \\
+    \prob(fever) &= \num{0,013} \\
+\end{align*}
+
+TODO: network
+
+Wir nehmen an, dass das Ereignis $fever$ von dem Ereignis $sm$ stochastisch
+unabhängig ist.  Mit dem Satz von der totalen Wahrscheinlichkeit ergibt sich:
+\begin{align*}
+    \begin{split}
+        \prob(bark) &= \prob(bark\ |\ sm) \cdot \prob(sm) +
+                       \prob(bark\ |\ sm^C) \cdot \prob(sm^C) \\
+                    &= \prob(bark\ |\ sm) \cdot \prob(sm) +
+                       \prob(bark\ |\ sm^C) \cdot (1 - \prob(sm)) \\
+                    &= \num{0,8} \cdot \num{0,01} +
+                       \num{0,05} \cdot \num{0,99} \\
+                    &= \num{0,0575}
+    \end{split} \\
+    \begin{split}
+        \prob(sweat) &= \prob(sweat\ |\ sm \cap fever) \cdot
+                        \prob(sm \cap fever) \\
+                     &+ \prob(sweat\ |\ sm \cap fever^C) \cdot
+                        \prob(sm \cap fever^C) \\
+                     &+ \prob(sweat\ |\ sm^C \cap fever) \cdot
+                        \prob(sm^C \cap fever) \\
+                     &+ \prob(sweat\ |\ sm^C \cap fever^C) \cdot
+                        \prob(sm^C \cap fever^C) \\
+                     &= \prob(sweat\ |\ sm \cap fever) \cdot
+                        \prob(sm) \cdot \prob(fever) \\
+                     &+ \prob(sweat\ |\ sm \cap fever^C) \cdot
+                        \prob(sm) \cdot (1 - \prob(fever)) \\
+                     &+ \prob(sweat\ |\ sm^C \cap fever) \cdot
+                        (1 - \prob(sm)) \cdot \prob(fever) \\
+                     &+ \prob(sweat\ |\ sm^C \cap fever^C) \cdot
+                        (1 - \prob(sm)) \cdot (1 - \prob(fever)) \\
+                        &= \num{0,8} \cdot
+                        \num{0,01} \cdot \num{0,013} \\
+                        &+ \num{0,4} \cdot
+                        \num{0,01} \cdot \num{0,987} \\
+                        &+ \num{0,6} \cdot
+                        \num{0,99} \cdot \num{0,013} \\
+                        &+ \num{0} \cdot
+                        \num{0,99} \cdot \num{0,987} \\
+                     &= \num{0.011774}
+    \end{split}
+\end{align*}
+
+TODO: example of explaining away in the network
+
+Wir verwenden den Satz von Bayes.
+\begin{equation*}
+    \begin{split}
+        \prob(sm\ |\ bark)
+        &= \frac{\prob(sm) \cdot \prob(bark\ |\ sm)}{\prob(bark)} \\
+        &= \frac{\num{0,01} \cdot \num{0,8}}{\num{0,0575}} \\
+        &= \num{0.1391304347826087}
+    \end{split}
+\end{equation*}
+\begin{equation*}
+    \begin{split}
+        \prob(sweat) = \num{0.011774}
+        \qquad \text{s.o.}
+    \end{split}
+\end{equation*}
+\begin{equation*}
+    \begin{split}
+        \prob(sm\ |\ sweat \cap bark) = TODO
+        \qquad \text{s.o.}
+    \end{split}
+\end{equation*}
 
 \end{document}
