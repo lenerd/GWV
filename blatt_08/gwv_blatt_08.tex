@@ -109,7 +109,11 @@
     \end{tikzpicture}
     \caption{Belief Network zum Auto}
 \end{figure}
-
+Da die Batterie von keiner Komponente abhängig ist, gibt es eine Wahrscheinlichkeit von $0,9$, dass
+die Battiere funktioniert. Für den Starter und die Engine muss man den Satz der totalen 
+Wahrscheinlichkeit anwenden, um zu bestimmen, mit welcher Wahrscheinlichkeit die Bauteile funktionieren
+werden. Bei der letzten Fragestellung müssen wir den Satz von Bayes verwenden. In diesem Fall ist die 
+Engine von der fuelpump ab abhängig.
 \begin{align*}
     \prob(battery) &= \num{0,9} \\
     \begin{split}
