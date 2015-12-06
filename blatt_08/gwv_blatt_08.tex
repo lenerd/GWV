@@ -26,6 +26,8 @@
 
 \usepackage{tikz}
 \usetikzlibrary{arrows,automata}
+\usetikzlibrary{graphs}
+\usetikzlibrary{shapes}
 \usepackage{verbatim}
 
 %\usepackage[newfloat]{minted}
@@ -68,6 +70,75 @@
 \section*{Exercise \blattnr.2: Language Modelling}
 
 \section*{Exercise \blattnr.3: Diagnosis (cont.)}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[%
+            auto,
+            node distance=1cm,
+            draw,
+            scale=3,
+            component/.style = {
+                draw,
+                ellipse,
+                align=center,
+            },
+            edge/.style = {
+                ->,
+                >=stealth',
+            },
+        ]
+        \node [component] (ik)  at (0, 3) {ignition \\ key};
+        \node [component] (bat) at (1, 3) {battery};
+        \node [component] (st)  at (0, 1) {starter};
+        \node [component] (fl)  at (1, 1) {filter};
+        \node [component] (efr) at (2, 2) {electronic \\ fuel \\ regulation};
+        \node [component] (ft)  at (3, 2) {fuel tank};
+        \node [component] (fp)  at (2, 1) {fuel pump};
+        \node [component] (en)  at (1, 0) {engine};
+
+        \draw [edge] (ik) -- (st);
+        \draw [edge] (ik) -- (efr);
+        \draw [edge] (bat) -- (st);
+        \draw [edge] (bat) -- (efr);
+        \draw [edge] (ft) -- (fp);
+        \draw [edge] (efr) -- (fp);
+        \draw [edge] (st) -- (en);
+        \draw [edge] (fl) -- (en);
+        \draw [edge] (fp) -- (en);
+    \end{tikzpicture}
+    \caption{Belief Network zum Auto}
+\end{figure}
+
+\begin{align*}
+    \prob(battery) &= \num{0,9} \\
+    \begin{split}
+        \prob(starter)
+        &= \prob(st\ |\ ik \cap bat) \cdot \prob(ik \cap bat) \\
+        &= \prob(st\ |\ ik \cap bat) \cdot \prob(ik) \cdot \prob(bat) \\
+        &=\num{0,9}^3 \\
+        &= \prob(efr)
+    \end{split} \\
+    \begin{split}
+        \prob(engine)
+        &= \prob(en\ |\ st \cap fl \cap fp) \cdot \prob(st \cap fl \cap fp) \\
+        &= \prob(en\ |\ st \cap fl \cap fp) \cdot \prob(st) \cdot \prob(fl) \cdot \prob(fp) \\
+        &= \prob(en\ |\ st \cap fl \cap fp) \cdot \prob(st) \cdot \prob(fl) \cdot \prob(fp\ |\ efr \cap ft) \cdot \prob(efr \cap ft) \\
+        &= \prob(en\ |\ st \cap fl \cap fp) \cdot \prob(st) \cdot \prob(fl) \cdot \prob(fp\ |\ efr \cap ft) \cdot \prob(efr) \cdot \prob(ft) \\
+        &= \num{0,9} \cdot \num{0,9}^3 \cdot \num{0,9} \cdot \num{0,9} \cdot \num{0,9}^3 \cdot \num{0,9} \\
+        &= \num{0,9}^{10}
+    \end{split} \\
+    \begin{split}
+        \prob(engine\ |\ fuel\_pump)
+        &= \frac{\prob(en \cap fp)}{\prob(fp)} \\
+        &= \frac{\prob(en)}{\prob(fp)} \\
+        &= \frac{\prob(en)}{\prob(fp\ |\ efr \cap ft) \cdot \prob(efr \cap ft)} \\
+        &= \frac{\prob(en)}{\prob(fp\ |\ efr \cap ft) \cdot \prob(efr) \cdot \prob(ft)} \\
+        &= \frac{\num{0,9}^10}{\num{0,9} \cdot \num{0,9}^3 \cdot \num{0,9}} \\
+        &= \num{0,9}^5 \\
+    \end{split}
+\end{align*}
+
 
 \section*{Exercise \blattnr.4: Bayesian Probabilities}
 
