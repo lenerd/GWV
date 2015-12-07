@@ -239,10 +239,25 @@ Aus dem Text ergibt sich die Wahrscheinlichkeiten:
     \caption{Belief Network zum Schmugler}
 \end{figure}
 
-TODO: example of explaining away in the network
+Beispiel für \emph{explaining away} im Belief Network:
+Seien $a_1,b_1$ die bedingten Wahrscheinlichkeiten dafür, dass eine Person ein
+Schmuggler ist bzw. dass eine Person Fieber hat, gegeben, dass sie schwitzt.
+\begin{align*}
+    \prob(smuggler\ |\ sweat) &= a_1 \\
+    \prob(fever\ |\ sweat) &= b_1
+\end{align*}
+Wird nun zusätzlich der bellender Hund beobachtet, so ergeben sich die
+Wahrscheinlichkeiten $a_2, b_2$.
+\begin{align*}
+    \prob(smuggler\ |\ sweat \cap bark) &= a_2 \\
+    \prob(fever\ |\ sweat \cap bark) &= b_2
+\end{align*}
+Die Wahrscheinlichkeit für einen Schmuggler ist gestiegen ($a_2 > a_1$), die
+für das Fieber gesunken ($b_2 < b_1$). Das beobachtete Schwitzen wurde durch
+das nun wahrscheinlichere Schmuggeln weg erklärt.
 
 Wir nehmen an, dass das Ereignis $fever$ von dem Ereignis $sm$ stochastisch
-unabhängig ist.  Mit dem Satz von der totalen Wahrscheinlichkeit ergibt sich:
+unabhängig ist.  Mit dem Satz von der totalen Wahrscheinlichkeit ergeben sich:
 \begin{align*}
     \begin{split}
         \prob(bark) &= \prob(bark\ |\ sm) \cdot \prob(sm) +
@@ -282,61 +297,60 @@ unabhängig ist.  Mit dem Satz von der totalen Wahrscheinlichkeit ergibt sich:
     \end{split}
 \end{align*}
 
-Wir verwenden den Satz von Bayes.
-\begin{equation*}
-    \begin{split}
-        \prob(sm\ |\ bark)
-        &= \frac{\prob(sm) \cdot \prob(bark\ |\ sm)}{\prob(bark)} \\
-        &= \frac{\num{0,01} \cdot \num{0,8}}{\num{0,0575}} \\
-        &= \num{0.1391304347826087}
-    \end{split}
-\end{equation*}
-\begin{equation*}
-    \begin{split}
-        \prob(sweat) = \num{0.011774}
-        \qquad \text{s.o.}
-    \end{split}
-\end{equation*}
-\begin{equation*}
-    \begin{split}
-        \prob(sm\ |\ sweat \cap bark)
-        &= \frac{\prob(sweat \cap bark\ |\ sm) \cdot \prob(sm)}{\prob(sweat \cap bark)} \\
-        &= \frac{\prob(sweat\ |\ sm) \cdot \prob(bark\ |\ sm) \cdot \prob(sm)}{\prob(sweat) \cdot \prob(bark)} \\
-        &= \frac{\frac{\prob(sm\ |\ sweat) \cdot \prob(sweat)}{\prob(sm)} \cdot \prob(bark\ |\ sm) \cdot \prob(sm)}{\prob(sweat) \cdot \prob(bark)} \\
-        &= \frac{(\prob(sm \cap fever\ |\ sweat) + \prob(sm \cap fever^C\ |\ sweat)) \cdot \prob(bark\ |\ sm)}{\prob(bark)} \\
-        &= \frac{\prob(bark\ |\ sm)}{\prob(bark)} \\
-        &\cdot (\prob(sweat\ |\ sm \cap fever) \cdot \prob(fever) \\
-        &+ \prob(sweat\ |\ sm \cap fever^C) \cdot \prob(fever^C)) \\
-        &= \frac{\num{0,8}}{\num{0,0575}} \\
-        &\cdot (\num{0,8} \cdot \num{0,013} \\
-        &+ \num{0,4} \cdot \num{0,987}) \\
-    \end{split}
-\end{equation*}
-\begin{equation*}
-    \begin{split}
-        \prob(sm\ |\ sweat \cap bark)
-        &= \frac{\prob(sm \cap (sweat \cap bark))}
-                {\prob(sweat \cap bark)} \\
-        &= \frac{\prob(sm) \cdot \prob(sweat \cap bark\ |\ sm)}
-                {\prob(sweat \cap bark)} \\
-        &= \frac{\prob(sm) \cdot \prob(sweat\ |\ sm) \cdot \prob(bark\ |\ sm)}
-                {\prob(sweat) \cdot \prob(bark)} \\
-        &= \frac{\prob(sm) \cdot \prob(bark\ |\ sm)}{\prob(sweat) \cdot \prob(bark)} \\
-        &\cdot \Big( \prob(fever) \cdot \prob(sweat\ |\ sm \cap fever) \\
-        &+ \prob(fever^C) \cdot \prob(sweat\ |\ sm \cap fever^C) \Big) \\
-        &= \frac{\num{0,01} \cdot \num{0,8}}{\num{0.011774} \cdot \num{0,0575}} \\
-        &\cdot \Big( \num{0,013} \cdot \num{0,8} + \num{0,987} \cdot \num{0,4} \Big) \\
-        &= 
-    \end{split}
-\end{equation*}
-\begin{equation*}
-    \begin{split}
-        \prob(sweat\ |\ sm) &= \frac{\prob(sweat) \cdot \prob(sm\ |\ sweat)}{\prob(sm)} \\
-        \prob(sweat\ |\ sm) &= \frac{\prob(sweat) \cdot (\prob(sm \cap fever\ |\ sweat) + \prob(sm \cap fever^C\ |\ sweat))}{\prob(sm)} \\
-        \prob(sweat\ |\ sm) &= \frac{\prob(sweat) \cdot (\frac{\prob(sm \cap fever) \cdot \prob(sweat\ |\ sm \cap fever)}{\prob(sweat)} + \frac{\prob(sm \cap fever^C) \cdot \prob(sweat\ |\ sm \cap fever^C)}{\prob(sweat)})}{\prob(sm)} \\
-        \prob(sweat\ |\ sm) &= \frac{\prob(sm) \cdot \prob(fever) \cdot \prob(sweat\ |\ sm \cap fever) + \prob(sm) \cdot \prob(fever^C) \cdot \prob(sweat\ |\ sm \cap fever^C)}{\prob(sm)} \\
-        \prob(sweat\ |\ sm) &= \prob(fever) \cdot \prob(sweat\ |\ sm \cap fever) + \prob(fever^C) \cdot \prob(sweat\ |\ sm \cap fever^C) \\
-    \end{split}
-\end{equation*}
+\begin{itemize}
+    \item
+        Schmuggler, gegeben der Hund bellt.
+        (Wir verwenden den Satz von Bayes.)
+        \begin{equation*}
+            \begin{split}
+                \prob(sm\ |\ bark)
+                &= \frac{\prob(sm) \cdot \prob(bark\ |\ sm)}{\prob(bark)} \\
+                &= \frac{\num{0,01} \cdot \num{0,8}}{\num{0,0575}} \\
+                &= \num{0.139}
+            \end{split}
+        \end{equation*}
+
+    \item Mensch schwitzt.
+        \begin{equation*}
+            \begin{split}
+                \prob(sweat) = \num{0.011774}
+                \qquad \text{s.o.}
+            \end{split}
+        \end{equation*}
+
+    \item Schmuggler, gegeben, dass Mensch schwitzt und der Hund bellt.
+        \begin{equation*}
+            \begin{split}
+                \prob(sm\ |\ sweat \cap bark)
+                &= \frac{\prob(sweat \cap bark\ |\ sm) \cdot \prob(sm)}
+                        {\prob(sweat \cap bark)} \\
+                &= \frac{\prob(sweat\ |\ sm) \cdot \prob(bark\ |\ sm) \cdot
+                   \prob(sm)}{\prob(sweat) \cdot \prob(bark)} \\
+                &= \frac{\frac{\prob(sm\ |\ sweat) \cdot \prob(sweat)}
+                              {\prob(sm)}
+                         \cdot \prob(bark\ |\ sm) \cdot \prob(sm)}
+                        {\prob(sweat) \cdot \prob(bark)} \\
+                &= \frac{\prob(sm\ |\ sweat) \cdot \prob(bark\ |\ sm)}
+                        {\prob(bark)} \\
+                &= \frac{(\prob(sm \cap fever\ |\ sweat) +
+                          \prob(sm \cap fever^C\ |\ sweat)) \cdot
+                         \prob(bark\ |\ sm)}
+                        {\prob(bark)} \\
+                &= \frac{(\frac{\prob(sweat\ |\ sm \cap fever) \cdot \prob(sm \cap fever)}{\prob(sweat)} +
+                          \frac{\prob(sweat\ |\ sm \cap fever^C) \cdot \prob(sm \cap fever^C)}{\prob(sweat)})}
+                        {\prob(bark)} \\
+                &\cdot \prob(bark\ |\ sm) \\
+                &= \frac{(\prob(sweat\ |\ sm \cap fever) \cdot \prob(fever) +
+                          \prob(sweat\ |\ sm \cap fever^C) \cdot \prob(fever^C))}
+                          {\prob(sweat) \cdot \prob(bark)} \\
+                &\cdot \prob(bark\ |\ sm) \cdot \prob(sm)\\
+                &= \frac{(\num{0,8} \cdot \num{0,013} + \num{0,4} \cdot \num{0,987})}
+                        {\num{0,011774} \cdot \num{0,0575}}
+                   \cdot \num{0,8} \cdot \num{0,01} \\
+                &= \num{4,788}\ \lightning
+            \end{split}
+        \end{equation*}
+        Hier ist etwas schief gegangen.
+\end{itemize}
 
 \end{document}
