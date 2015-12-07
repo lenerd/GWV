@@ -167,7 +167,36 @@ Aus dem Text ergibt sich die Wahrscheinlichkeiten:
     \prob(fever) &= \num{0,013} \\
 \end{align*}
 
-TODO: network
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[%
+            auto,
+            node distance=1cm,
+            draw,
+            scale=3,
+            component/.style = {
+                draw,
+                ellipse,
+                align=center,
+            },
+            edge/.style = {
+                ->,
+                >=stealth',
+            },
+        ]
+        \node [component] (sm) at (0, 1) {smuggler};
+        \node [component] (fv) at (1, 1) {fever};
+        \node [component] (ba) at (0, 0) {dog barks};
+        \node [component] (sw) at (1, 0) {sweat};
+
+        \draw [edge] (sm) -- (ba);
+        \draw [edge] (sm) -- (sw);
+        \draw [edge] (fv) -- (sw);
+    \end{tikzpicture}
+    \caption{Belief Network zum Schmugler}
+\end{figure}
+
+TODO: example of explaining away in the network
 
 Wir nehmen an, dass das Ereignis $fever$ von dem Ereignis $sm$ stochastisch
 unabhängig ist.  Mit dem Satz von der totalen Wahrscheinlichkeit ergibt sich:
@@ -209,8 +238,6 @@ unabhängig ist.  Mit dem Satz von der totalen Wahrscheinlichkeit ergibt sich:
                      &= \num{0.011774}
     \end{split}
 \end{align*}
-
-TODO: example of explaining away in the network
 
 Wir verwenden den Satz von Bayes.
 \begin{equation*}
