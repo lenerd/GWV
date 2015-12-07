@@ -68,11 +68,43 @@
 \maketitle
 
 \section*{Exercise \blattnr.2: Language Modelling}
-Die entstehenden Sequenzen bzw. Wörter haben ähnliche Eigeschaften, wie Schlagzeilen eines Newstickers.
-Die Meldungen, die durch unser Programm entstehen sind nicht zu 100 Prozent grammatikalisch korrekt, d.h.
-es entstehen keine vollständigen Sätze. Dies aber für diesen Anwendungszweck nicht so wichtig, da Eilmeldungen bzw. Überschriften nicht immer den grammatikalischen Regeln entsprechen.
-Ein Unterschied zu "richtigen" Texten gibt es noch, da Sonderzeichen teilweise nicht richtig gesetzt werden.
 
+\begin{itemize}
+    \item Siehe \texttt{ticker.py}
+        \begin{tiny}
+\begin{verbatim}
+$ ./ticker.py the 15 3
+# found cached marcov chain
+the tories out , tactical voting wizard oder stop hague die gegen die tories eingestellten
+
+the art of computer programming ( taocp ) von donald e. knuth sind jetzt online
+
+the bristol group deutschland gmbh gemeinsam mit dem schauspieler patrick stewart ( " captain picard
+
+the perfect storm ( warner ) sowie the patriot ( columbia tristar ) sein .
+
+the microsoft file : the secret case against bill gates ( rang 7 ) ,
+
+the bat kann sogar für lan-netzwerke den lokalen mail-server ersetzen . ein zusatzmodul lokalisiert das
+
+the gap " widmen , die man mit dem handy , wie es robertson versichert
+
+the internet and state control in authoritarian regimes : china , cuba and the counterrevolution
+
+the case when their recipient has communicated his/her address for this purpose or in full
+
+the millenium " von hps enterprise computing group zielt besonders auf web-dienstleistungsanbieter . diese unternehmen
+\end{verbatim}
+\end{tiny}
+    \item
+        Wortfolgen, die in echten Texten häufig sind, tauchen auf (nach Konstruktion).
+        Inhaltlich und grammatikalisch sind die generierten Wortfolgen nur bedingt richtig.
+        Letzteres aber für diesen Anwendungszweck unter Umständen weniger
+        wichtig, da Eilmeldungen bzw.  Überschriften nicht immer den
+        grammatikalischen Regeln entsprechen.
+
+    \item Siehe \texttt{ticker.py}
+\end{itemize}
 
 \section*{Exercise \blattnr.3: Diagnosis (cont.)}
 
@@ -114,11 +146,13 @@ Ein Unterschied zu "richtigen" Texten gibt es noch, da Sonderzeichen teilweise n
     \end{tikzpicture}
     \caption{Belief Network zum Auto}
 \end{figure}
-Da die Batterie von keiner Komponente abhängig ist, gibt es eine Wahrscheinlichkeit von $0,9$, dass
-die Battiere funktioniert. Für den Starter und die Engine muss man den Satz der totalen 
-Wahrscheinlichkeit anwenden, um zu bestimmen, mit welcher Wahrscheinlichkeit die Bauteile funktionieren
-werden. Bei der letzten Fragestellung müssen wir den Satz von Bayes verwenden. In diesem Fall ist die 
-Engine von der fuelpump ab abhängig.
+
+Da die Batterie von keiner Komponente abhängig ist, gibt es eine
+Wahrscheinlichkeit von \num{0,9}, dass die Batterie funktioniert. Mit Hilfe des
+Satzes der totalen Wahrscheinlichkeit lässt sich bestimmen, mit welcher
+Wahrscheinlichkeit die Bauteile funktionieren werden.
+
+Es ergeben sich die folgenden Wahrscheinlichkeiten:
 \begin{align*}
     \prob(battery) &= \num{0,9} \\
     \begin{split}
@@ -131,10 +165,14 @@ Engine von der fuelpump ab abhängig.
     \begin{split}
         \prob(engine)
         &= \prob(en\ |\ st \cap fl \cap fp) \cdot \prob(st \cap fl \cap fp) \\
-        &= \prob(en\ |\ st \cap fl \cap fp) \cdot \prob(st) \cdot \prob(fl) \cdot \prob(fp) \\
-        &= \prob(en\ |\ st \cap fl \cap fp) \cdot \prob(st) \cdot \prob(fl) \cdot \prob(fp\ |\ efr \cap ft) \cdot \prob(efr \cap ft) \\
-        &= \prob(en\ |\ st \cap fl \cap fp) \cdot \prob(st) \cdot \prob(fl) \cdot \prob(fp\ |\ efr \cap ft) \cdot \prob(efr) \cdot \prob(ft) \\
-        &= \num{0,9} \cdot \num{0,9}^3 \cdot \num{0,9} \cdot \num{0,9} \cdot \num{0,9}^3 \cdot \num{0,9} \\
+        &= \prob(en\ |\ st \cap fl \cap fp) \cdot \prob(st) \cdot
+           \prob(fl) \cdot \prob(fp) \\
+        &= \prob(en\ |\ st \cap fl \cap fp) \cdot \prob(st) \cdot
+           \prob(fl) \cdot \prob(fp\ |\ efr \cap ft) \cdot \prob(efr \cap ft) \\
+        &= \prob(en\ |\ st \cap fl \cap fp) \cdot \prob(st) \cdot
+           \prob(fl) \cdot \prob(fp\ |\ efr \cap ft) \cdot \prob(efr) \cdot \prob(ft) \\
+        &= \num{0,9} \cdot \num{0,9}^3 \cdot \num{0,9} \cdot \num{0,9} \cdot
+           \num{0,9}^3 \cdot \num{0,9} \\
         &= \num{0,9}^{10}
     \end{split} \\
     \begin{split}
@@ -261,8 +299,43 @@ Wir verwenden den Satz von Bayes.
 \end{equation*}
 \begin{equation*}
     \begin{split}
-        \prob(sm\ |\ sweat \cap bark) = TODO
-        \qquad \text{s.o.}
+        \prob(sm\ |\ sweat \cap bark)
+        &= \frac{\prob(sweat \cap bark\ |\ sm) \cdot \prob(sm)}{\prob(sweat \cap bark)} \\
+        &= \frac{\prob(sweat\ |\ sm) \cdot \prob(bark\ |\ sm) \cdot \prob(sm)}{\prob(sweat) \cdot \prob(bark)} \\
+        &= \frac{\frac{\prob(sm\ |\ sweat) \cdot \prob(sweat)}{\prob(sm)} \cdot \prob(bark\ |\ sm) \cdot \prob(sm)}{\prob(sweat) \cdot \prob(bark)} \\
+        &= \frac{(\prob(sm \cap fever\ |\ sweat) + \prob(sm \cap fever^C\ |\ sweat)) \cdot \prob(bark\ |\ sm)}{\prob(bark)} \\
+        &= \frac{\prob(bark\ |\ sm)}{\prob(bark)} \\
+        &\cdot (\prob(sweat\ |\ sm \cap fever) \cdot \prob(fever) \\
+        &+ \prob(sweat\ |\ sm \cap fever^C) \cdot \prob(fever^C)) \\
+        &= \frac{\num{0,8}}{\num{0,0575}} \\
+        &\cdot (\num{0,8} \cdot \num{0,013} \\
+        &+ \num{0,4} \cdot \num{0,987}) \\
+    \end{split}
+\end{equation*}
+\begin{equation*}
+    \begin{split}
+        \prob(sm\ |\ sweat \cap bark)
+        &= \frac{\prob(sm \cap (sweat \cap bark))}
+                {\prob(sweat \cap bark)} \\
+        &= \frac{\prob(sm) \cdot \prob(sweat \cap bark\ |\ sm)}
+                {\prob(sweat \cap bark)} \\
+        &= \frac{\prob(sm) \cdot \prob(sweat\ |\ sm) \cdot \prob(bark\ |\ sm)}
+                {\prob(sweat) \cdot \prob(bark)} \\
+        &= \frac{\prob(sm) \cdot \prob(bark\ |\ sm)}{\prob(sweat) \cdot \prob(bark)} \\
+        &\cdot \Big( \prob(fever) \cdot \prob(sweat\ |\ sm \cap fever) \\
+        &+ \prob(fever^C) \cdot \prob(sweat\ |\ sm \cap fever^C) \Big) \\
+        &= \frac{\num{0,01} \cdot \num{0,8}}{\num{0.011774} \cdot \num{0,0575}} \\
+        &\cdot \Big( \num{0,013} \cdot \num{0,8} + \num{0,987} \cdot \num{0,4} \Big) \\
+        &= 
+    \end{split}
+\end{equation*}
+\begin{equation*}
+    \begin{split}
+        \prob(sweat\ |\ sm) &= \frac{\prob(sweat) \cdot \prob(sm\ |\ sweat)}{\prob(sm)} \\
+        \prob(sweat\ |\ sm) &= \frac{\prob(sweat) \cdot (\prob(sm \cap fever\ |\ sweat) + \prob(sm \cap fever^C\ |\ sweat))}{\prob(sm)} \\
+        \prob(sweat\ |\ sm) &= \frac{\prob(sweat) \cdot (\frac{\prob(sm \cap fever) \cdot \prob(sweat\ |\ sm \cap fever)}{\prob(sweat)} + \frac{\prob(sm \cap fever^C) \cdot \prob(sweat\ |\ sm \cap fever^C)}{\prob(sweat)})}{\prob(sm)} \\
+        \prob(sweat\ |\ sm) &= \frac{\prob(sm) \cdot \prob(fever) \cdot \prob(sweat\ |\ sm \cap fever) + \prob(sm) \cdot \prob(fever^C) \cdot \prob(sweat\ |\ sm \cap fever^C)}{\prob(sm)} \\
+        \prob(sweat\ |\ sm) &= \prob(fever) \cdot \prob(sweat\ |\ sm \cap fever) + \prob(fever^C) \cdot \prob(sweat\ |\ sm \cap fever^C) \\
     \end{split}
 \end{equation*}
 
