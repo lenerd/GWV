@@ -52,18 +52,17 @@ def train(input_files):
     print("saved training data")
 
 
-def tag_list(obs, init, trans, emiss):
+def _filter(obs, init, trans, emiss):
     if not obs:
         return []
     tags = []
-    ob = obs.pop(0)
+    ob = obs[0]
     alpha = {s: init[s] * emiss[s].get(ob, 0)  for s in init}
     tags.append(max(alpha, key=lambda x:alpha[x]))
+    for ob in obs[1:]:
+        alpha = {s: emiss[s].get(ob, 0) * sum(alpha[q]*trans[q].get(s, 0) for q in init)
+                 for s in init}
 
-    while obs:
-        ob = obs.pop(0)
-        alpha = {s: emiss[s].get(ob, 0) * sum(alpha[q]*trans[q].get(s, 0) for q in
-            init)  for s in init}
         tags.append(max(alpha, key=lambda x:alpha[x]))
     return tags
 
@@ -72,17 +71,24 @@ def viterbi(obs, init, trans, emiss):
     if not obs:
         return []
     tags = []
-    ob = obs.pop(0)
+    ob = obs[0]
+
     delta = {s: init[s] * emiss[s].get(ob, 0) for s in init}
+    if max(delta.values()) == 0:
+        print("no state with emission: '{}'".format(ob))
+        delta = {s: init[s] for s in init}
+
     pre = [{s: None for s in init}]
-    while obs:
-        ob = obs.pop(0)
-        mx = {s: max(((q, delta[q] * trans[q].get(s, 0)) for q in init),
-            key=lambda x: x[1]) for s in init}
+    for ob in obs[1:]:
+        mx = {s: max(((q, delta[q] * trans[q].get(s, 0)) for q in init), key=lambda x: x[1])
+              for s in init}
         for s in mx:
             mx[s] = (mx[s][0], mx[s][1] * emiss[s].get(ob, 0))
         if max(mx.values(), key=lambda x: x[1])[1] == 0:
             print("no transition to state with emission: '{}'".format(ob))
+            mx = {s: max(((q, delta[q] * trans[q].get(s, 0)) for q in init),
+                         key=lambda x: x[1])
+                  for s in init}
 
         delta = {s: mx[s][1] for s in init}
         pre.append({s: mx[s][0] for s in init})
@@ -105,8 +111,8 @@ def tag(input_file):
 
     # words = input("> ").split()
     words = input_file.split()
-    tags_f = tag_list(words[:], init, trans, emiss)
-    tags_v = viterbi(words[:], init, trans, emiss)
+    tags_f = _filter(words, init, trans, emiss)
+    tags_v = viterbi(words, init, trans, emiss)
     print([(w, t1, t2) for w, t1, t2 in zip(words, tags_f, tags_v)])
 
 
