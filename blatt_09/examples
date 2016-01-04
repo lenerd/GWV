@@ -1,0 +1,162 @@
+word                viterbi   forward
+-----------------------------------------------
+Das                 ART       ART
+Thinkpad            NN        APPRART
+des                 ART       APPRART
+Mannes              NN        APPRART
+hat                 VAFIN     APPRART
+einen               ART       APPRART
+Prozessor           NN        APPRART
+von                 APPR      APPRART
+Intel               NE        APPRART
+.                   $.        APPRART
+
+word                viterbi   forward
+-----------------------------------------------
+Das                 ART       ART
+Notebook            NN        NN
+des                 ART       ART
+Mannes              NN        NN
+hat                 VAFIN     VAFIN
+einen               ART       ART
+Prozessor           NN        NN
+von                 APPR      APPR
+Intel               NE        NE
+.                   $.        $.
+word                viterbi   forward
+-----------------------------------------------
+Möge                APPR      PRELAT
+die                 ART       PRELAT
+Macht               NN        PRELAT
+mit                 APPR      PRELAT
+dir                 NN        PRELAT
+sein                VAINF     PRELAT
+.                   $.        PRELAT
+
+word                viterbi   forward
+-----------------------------------------------
+Filme               NN        NN
+sind                VAFIN     VAFIN
+toll                ADJD      ADJD
+.                   $.        $.
+
+word                viterbi   forward
+-----------------------------------------------
+Feier               ADV       ITJ
+nicht               PTKNEG    ITJ
+zu                  PTKA      ITJ
+viel                ADJD      ITJ
+.                   $.        ITJ
+
+word                viterbi   forward
+-----------------------------------------------
+Kein                PIAT      PIAT
+Wort                NN        NN
+zu                  APPR      PTKZU
+ihm                 PPER      PPER
+.                   $.        $.
+
+word                viterbi   forward
+-----------------------------------------------
+Der                 ART       ART
+Vertrag             NN        NN
+wird                VAFIN     VAFIN
+nicht               PTKNEG    PTKNEG
+verändert           VVPP      VVPP
+.                   $.        $.
+
+word                viterbi   forward
+-----------------------------------------------
+Wir                 PPER      PPER
+müssen              VMFIN     VMFIN
+zurück              ADV       ADV
+in                  APPR      APPR
+die                 ART       ART
+Zukunft             NN        NN
+.                   $.        $.
+
+word                viterbi   forward
+-----------------------------------------------
+Der                 ART       ART
+Hund                ADJA      XY
+rennt               NN        XY
+los                 PTKVZ     XY
+.                   $.        XY
+
+word                viterbi   forward
+-----------------------------------------------
+Die                 ART       ART
+Katze               NN        PWAT
+liegt               VVFIN     PWAT
+auf                 APPR      PWAT
+der                 ART       PWAT
+Decke               NN        PWAT
+.                   $.        PWAT
+
+word                viterbi   forward
+-----------------------------------------------
+Ich                 PPER      PPER
+bin                 VAFIN     VAFIN
+Batman              VVPP      $,
+.                   $.        $,
+
+word                viterbi   forward
+-----------------------------------------------
+Das                 PDS       ART
+ist                 VAFIN     VAFIN
+Sparta              VVPP      PIDAT
+.                   $.        PIDAT
+
+word                viterbi   forward
+-----------------------------------------------
+Hallo               ART       PTKA
+Welt                NN        PTKA
+.                   $.        PTKA
+
+word                viterbi   forward
+-----------------------------------------------
+Ich                 PPER      PPER
+hab                 ADV       ITJ
+keine               PIAT      ITJ
+Lust                NN        ITJ
+mehr                ADV       ITJ
+.                   $.        ITJ
+
+word                viterbi   forward
+-----------------------------------------------
+Er                  PPER      PPER
+ist                 VAFIN     VAFIN
+tot                 ADJD      ADJD
+,                   $,        $,
+Jim                 NE        NE
+!                   $.        $.
+
+word                viterbi   forward
+-----------------------------------------------
+Das                 PDS       ART
+Wohl                ADV       ADV
+vieler              PIDAT     PIDAT
+ist                 NN        ADJA
+wichtiger           ADJD      ADJA
+als                 KOKOM     ADJA
+das                 ART       ADJA
+Wohl                ADV       ADJA
+weniger             ADJD      ADJA
+,                   $,        ADJA
+oder                KON       ADJA
+eines               ART       ADJA
+Einzelnen           ADJA      ADJA
+.                   $.        ADJA
+
+word                viterbi   forward
+-----------------------------------------------
+Mein                PPOSAT    PPOSAT
+Gott                ADJA      APPR
+Pille               NN        APPR
+,                   $,        APPR
+was                 PWS       APPR
+habe                VAFIN     APPR
+ich                 PPER      APPR
+getan               VVPP      APPR
+?                   $.        APPR
+
